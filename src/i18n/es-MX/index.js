@@ -3,5 +3,5 @@
 
 export default {
   failed: 'La acción falló',
-  success: 'La acción fue exitosa',
-};
+  success: 'La acción fue exitosa'
+}

@@ -1,6 +1,15 @@
 <template>
   <q-page class="flex flex-center">
-    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">
+<!--    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">-->
+    <q-table
+      title="Instrumentos"
+      :data="tableData"
+      :pagination.sync="serverPagination"
+      :rows-per-page-options="[20,50]"
+      :columns="columns"
+      row-key="id"
+      @request="request"
+    />
   </q-page>
 </template>
 
@@ -8,7 +17,51 @@
 </style>
 
 <script>
+import { getUserInstruments } from '../services/instrument.TARGET'
+
 export default {
-  name: 'PageIndex'
+  // name: 'PageIndex',
+  // data: () => ({
+  //   columns: [
+  //     { name: 'name', label: 'Nombre', field: 'name', align: 'left' },
+  //     { name: 'owner', label: 'Dueño', field: 'owner', align: 'left' }
+  //   ],
+  //   tableData: [],
+  //   loadingData: true,
+  //   serverPagination: {
+  //     page: 1,
+  //     rowsNumber: 10
+  //   }
+  // }),
+  data () {
+    return {
+      columns: [
+        { name: 'name', label: 'Nombre', field: 'name', align: 'left' },
+        { name: 'owner', label: 'Dueño', field: 'owner', align: 'left' }
+      ],
+      tableData: [],
+      loadingData: true,
+      serverPagination: {
+        page: 1,
+        rowsNumber: 10
+      }
+    }
+  },
+  created () {
+    this.request({ pagination: this.serverPagination })
+  },
+  methods: {
+    request ({ pagination }) {
+      this.loadingData = true
+      getUserInstruments('test', pagination)
+        .then(result => {
+          console.log(result)
+          this.serverPagination = pagination
+          this.serverPagination.rowsNumber = result.count
+          this.tableData = result
+          this.loadingData = false
+        })
+    }
+  }
 }
 </script>

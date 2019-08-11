@@ -11,7 +11,7 @@
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="/" label="Page One" />
+        <q-route-tab to="/" label="Instrumentos" />
         <q-route-tab to="/Index" label="Page Two" />
       </q-tabs>
     </q-header>

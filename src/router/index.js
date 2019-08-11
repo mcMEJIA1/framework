@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store/index'
 
 import routes from './routes'
 
@@ -10,17 +11,32 @@ Vue.use(VueRouter)
  * directly export the Router instantiation
  */
 
-export default function (/* { store, ssrContext } */) {
-  const Router = new VueRouter({
-    scrollBehavior: () => ({ x: 0, y: 0 }),
-    routes,
+const Router = new VueRouter({
+  /*
+   * NOTE! Change Vue Router mode from quasar.conf.js -> build -> vueRouterMode
+   *
+   * When going with "history" mode, please also make sure "build.publicPath"
+   * is set to something other than an empty string.
+   * Example: '/' instead of ''
+   */
 
-    // Leave these as is and change from quasar.conf.js instead!
-    // quasar.conf.js -> build -> vueRouterMode
-    // quasar.conf.js -> build -> publicPath
-    mode: process.env.VUE_ROUTER_MODE,
-    base: process.env.VUE_ROUTER_BASE
-  })
+  // Leave as is and change from quasar.conf.js instead!
+  mode: process.env.VUE_ROUTER_MODE,
+  base: process.env.VUE_ROUTER_BASE,
+  scrollBehavior: () => ({ y: 0 }),
+  routes
+})
 
-  return Router
-}
+Router.beforeEach((to, from, next) => {
+  // Si no está logeado lo envía al login
+  if (to.matched.some(record => record.meta.requiresAuth) && !store.getters['auth/isAuthenticated']) {
+    next({
+      path: '/login',
+      query: { redirect: to.fullPath }
+    })
+    return
+  }
+  next()
+})
+
+export default Router

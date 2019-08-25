@@ -1,16 +1,19 @@
 <template>
-  <q-page class="flex flex-center">
-<!--    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">-->
-    <q-table
-      title="Instrumentos"
-      :data="tableData"
-      :pagination.sync="serverPagination"
-      :rows-per-page-options="[20,50]"
-      :columns="columns"
-      row-key="id"
-      @request="request"
-    />
-  </q-page>
+  <div class="q-pa-md">
+      <q-table
+        grid
+        title="Instrumentos"
+        :data="tableData"
+        :pagination.sync="serverPagination"
+        :rows-per-page-options="[20,50]"
+        :columns="columns"
+        row-key="id"
+        hide-header
+        @request="request"
+        @click="console.log('me hicieron click')"
+      >
+      </q-table>
+    </div>
 </template>
 
 <style>

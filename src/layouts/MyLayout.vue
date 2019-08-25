@@ -12,12 +12,13 @@
 
       <q-tabs align="left">
         <q-route-tab to="/" label="Instrumentos" />
-        <q-route-tab to="/Index" label="Page Two" />
+        <q-route-tab to="/newInstrument" label="Añadir instrumento"/>
       </q-tabs>
     </q-header>
 
     <q-drawer v-model="left" side="left" overlay bordered>
       <!-- drawer content -->
+      <q-route-tab to="/Index" label="Page Two" />
     </q-drawer>
 
     <q-page-container>
@@ -27,7 +28,6 @@
     <q-footer class="bg-grey-8 text-white">
       <q-toolbar>
         <q-toolbar-title>
-          Footer
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>

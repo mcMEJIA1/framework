@@ -23,32 +23,6 @@
               :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"/>
           </q-step>
           <q-step
-            :name="3"
-            title="Añada las reglas de su instrumento"
-            caption="*"
-            icon="create_new_folder"
-            :done="step > 3"
-        >
-            <div v-for="(rule, index) in rules " v-bind:key="index" class = "row">
-              <div class="col-3">
-              </div>
-              <div class="col-5">
-                <q-input
-                        rounded outlined
-                        v-model="rule.Rname"
-                        label="Regla*"
-                        lazy-rules
-                        :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"/>
-              </div>
-              <div class="col-lg-2">
-                  <div class="block float-right">
-                    <q-btn @click="removerule(index)" icon="delete" round />
-                    <q-btn v-if="index + 1 === rules.length" @click="addrule" icon="playlist-plus" round />
-                  </div>
-              </div>
-            </div>
-          </q-step>
-          <q-step
             :name="2"
             title="Añada los objetivos de su instrumento"
             caption="*"
@@ -70,7 +44,37 @@
               <div class="col-lg-2">
                   <div class="block float-right">
                     <q-btn @click="removeObj(index)" icon="delete" round />
-                    <q-btn v-if="index + 1 === objectives.length" @click="addObj" icon="playlist-plus" round />
+                    <q-btn v-if="index + 1 === objectives.length" @click="addObj" round >
+                      <v-icon class="text-h4">+</v-icon>
+                    </q-btn>
+                  </div>
+              </div>
+            </div>
+          </q-step>
+          <q-step
+            :name="3"
+            title="Añada las reglas de su instrumento"
+            caption="*"
+            icon="create_new_folder"
+            :done="step > 3"
+        >
+            <div v-for="(rule, index) in rules " v-bind:key="index" class = "row">
+              <div class="col-3">
+              </div>
+              <div class="col-5">
+                <q-input
+                        rounded outlined
+                        v-model="rule.Rname"
+                        label="Regla*"
+                        lazy-rules
+                        :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"/>
+              </div>
+              <div class="col-lg-2">
+                  <div class="block float-right">
+                    <q-btn @click="removerule(index)" icon="delete" round />
+                    <q-btn v-if="index + 1 === rules.length" @click="addrule" round >
+                      <v-icon class="text-h4">+</v-icon>
+                    </q-btn>
                   </div>
               </div>
             </div>
@@ -97,7 +101,9 @@
               <div class="col-lg-2">
                 <div class="block float-right">
                   <q-btn @click="removeRol(index)" icon="delete" round/>
-                  <q-btn v-if="index + 1 === rols.length" @click="addRol" icon="playlist-plus" round/>
+                  <q-btn v-if="index + 1 === rols.length" @click="addRol" round>
+                    <v-icon class="text-h4">+</v-icon>
+                  </q-btn>
                 </div>
               </div>
             </div>
@@ -123,7 +129,9 @@
               <div class="col-lg-2">
                 <div class="block float-right">
                   <q-btn @click="removeRol(index)" icon="delete" round/>
-                  <q-btn v-if="index + 1 === steps.length" @click="addstep" icon="playlist-plus" round/>
+                  <q-btn v-if="index + 1 === steps.length" @click="addstep" round>
+                    <v-icon class="text-h4">+</v-icon>
+                  </q-btn>
                 </div>
               </div>
             </div>
@@ -228,7 +236,7 @@ export default {
       return step--
     },
     validations (step) {
-      if (step === 2) {
+      if (step === 3) {
         let checkEmptyrules = this.rules.filter(rule => rule.Rname === null)
         if (checkEmptyrules.length >= 1 && this.rules.length > 0) {
           Notify.create('Una o todas las reglas estan vacias')
@@ -237,7 +245,7 @@ export default {
       } else if (step === 1 && this.name === '') {
         Notify.create('Debe poner un nombre para continuar')
         return 'error'
-      } else if (step === 3) {
+      } else if (step === 2) {
         let checkEmpty = this.objectives.filter(obj => obj.Oname === null)
         if (checkEmpty.length >= 1 && this.objectives.length > 0) {
           Notify.create('Uno o todos los objetivos estan vacios')
@@ -252,14 +260,15 @@ export default {
       } else if (step === 5) {
         let checkEmpty = this.steps.filter(step => step.Sname === null)
         if (checkEmpty.length >= 1 && this.steps.length > 0) {
-          Notify.create('Una o todas las metas estan vacias')
+          Notify.create('Una o todos los pasos estan vacios')
           return 'error'
         }
       }
     },
     makeInstrument () {
       let contador = 3
-      let newInstrument = { 'id': contador, 'name': this.name, 'rules': this.rules, 'objectives': this.objectives, 'rols': this.rols, 'steps': this.steps }
+      let newInstrument = { 'id': contador, 'name': this.name, 'Reglas': Object.values(this.rules), 'Objetivos': Object.values(this.objectives), 'Roles': Object.values(this.rols), 'Pasos': Object.values(this.steps) }
+      console.log(this.rols)
       let response = functions('post', newInstrument)
       contador += 1
       this.step = 1

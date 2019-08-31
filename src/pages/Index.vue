@@ -39,7 +39,7 @@ export default {
   data () {
     return {
       columns: [
-        { name: 'name', label: 'Nombre', field: 'name', align: 'left' },
+        { name: 'compo', label: 'Nombre', field: 'name', align: 'left' },
         { name: 'owner', label: 'Dueño', field: 'owner', align: 'left' }
       ],
       tableData: [],

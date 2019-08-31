@@ -3,16 +3,15 @@
 
     <q-header elevated class="bg-primary text-white">
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="left = !left" />
-
         <q-toolbar-title>
           Meejel
         </q-toolbar-title>
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="/" label="Instrumentos" />
         <q-route-tab to="/newInstrument" label="Añadir instrumento"/>
+        <q-route-tab to="/" label="Instrumentos" />
+        <q-route-tab to="/newEvidence" label="Añadir evidencias"/>
       </q-tabs>
     </q-header>
 
@@ -24,13 +23,6 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-
-    <q-footer class="bg-grey-8 text-white">
-      <q-toolbar>
-        <q-toolbar-title>
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-footer>
 
   </q-layout>
 </template>

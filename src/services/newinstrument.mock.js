@@ -19,16 +19,16 @@ const returnList = () => {
 let instruments1 = [{
   'id': 1,
   'name': 'primer instrumento',
-  'rules': ['regla', 'regla', 'regla'],
-  'objectives': ['obj1', 'obj2', 'obj3', 'obj4'],
-  'rols': ['rol1', 'rol2', 'rol3', 'rol4', 'rol5'],
-  'goals': ['goal1', 'goal2']
+  'Reglas': ['regla', 'regla', 'regla'],
+  'Objetivos': ['obj1', 'obj2', 'obj3', 'obj4'],
+  'Roles': ['rol1', 'rol2', 'rol3', 'rol4', 'rol5'],
+  'Pasos': ['paso1', 'paso2']
 }, {
   'id': 2,
   'name': 'segundo instrumento',
-  'rules': ['regla1', 'regla2', 'regla3'],
-  'objectives': ['obj1', 'obj2', 'obj3', 'obj4'],
-  'rols': ['rol1', 'rol2', 'rol3', 'rol4', 'rol5'],
-  'goals': ['goal1', 'goal2']
+  'Reglas': ['regla1', 'regla2', 'regla3'],
+  'Objetivos': ['obj1', 'obj2', 'obj3', 'obj4'],
+  'Roles': ['rol1', 'rol2', 'rol3', 'rol4', 'rol5'],
+  'Pasos': ['paso1', 'paso2']
 }
 ]

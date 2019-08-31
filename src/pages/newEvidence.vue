@@ -13,13 +13,13 @@
                 <q-item-label header>Reglas</q-item-label>
                 <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayRules" :val="index" :label="item"/>
+                        <q-checkbox v-model="arrayRules" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Objetivos</q-item-label>
                 <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayObjectives" :val="index" :label="item"/>
+                        <q-checkbox v-model="arrayObjectives" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Roles</q-item-label>
@@ -46,13 +46,13 @@
                 <q-item-label header>Reglas</q-item-label>
                 <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayRules2" :val="index" :label="item"/>
+                        <q-checkbox v-model="arrayRules2" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Objetivos</q-item-label>
                 <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayObjectives2" :val="index" :label="item"/>
+                        <q-checkbox v-model="arrayObjectives2" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Roles</q-item-label>
@@ -79,13 +79,13 @@
                 <q-item-label header>Reglas</q-item-label>
                 <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayRules3" :val="index" :label="item"/>
+                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Objetivos</q-item-label>
                 <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="item"/>
+                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Roles</q-item-label>
@@ -198,7 +198,7 @@ export default {
       let algo = null
       this.getInstruments().forEach(element => {
         if (element.id === id) {
-          algo = element.rules
+          algo = element.Reglas
         }
       })
       return algo
@@ -207,7 +207,7 @@ export default {
       let algo = null
       this.getInstruments().forEach(element => {
         if (element.id === id) {
-          algo = element.objectives
+          algo = element.Objetivos
         }
       })
       return algo

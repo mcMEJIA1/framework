@@ -265,10 +265,15 @@ export default {
         }
       }
     },
+    makeInstrument2 () {
+      let contador = 3
+      let newInstrument = { 'id': contador, 'name': this.name, 'Reglas': Object.values(this.rules), 'Objetivos': Object.values(this.objectives), 'Roles': Object.values(this.rols), 'Pasos': Object.values(this.steps) }
+      return newInstrument
+    },
     makeInstrument () {
       let contador = 3
       let newInstrument = { 'id': contador, 'name': this.name, 'Reglas': Object.values(this.rules), 'Objetivos': Object.values(this.objectives), 'Roles': Object.values(this.rols), 'Pasos': Object.values(this.steps) }
-      console.log(this.rols)
+      console.log(newInstrument)
       let response = functions('post', newInstrument)
       contador += 1
       this.step = 1

@@ -19,19 +19,19 @@
         <q-bar>
           <q-space ></q-space>
           <q-btn dense flat icon="minimize" @click="maximizedToggle = false" :disable="!maximizedToggle">
-            <q-tooltip v-if="maximizedToggle" content-class="bg-white text-primary"></q-tooltip>
+            <q-tooltip v-if="maximizedToggle" content-class="bg-white text-primary">Minimizar</q-tooltip>
           </q-btn>
           <q-btn dense flat icon="crop_square" @click="maximizedToggle = true" :disable="maximizedToggle">
-            <q-tooltip v-if="!maximizedToggle" content-class="bg-white text-primary"></q-tooltip>
+            <q-tooltip v-if="!maximizedToggle" content-class="bg-white text-primary">Maximizar</q-tooltip>
           </q-btn>
           <q-btn dense flat icon="close" v-close-popup>
-            <q-tooltip content-class="bg-white text-primary"></q-tooltip>
+            <q-tooltip content-class="bg-white text-primary">Cerrar</q-tooltip>
           </q-btn>
         </q-bar>
         <q-card-section>
           <div class="text-h6" v-for="(item, index) in mostrar()" v-bind:key="index">
               <div v-if=" Array.isArray(item)">
-                  <div class="col">
+                  <div class="col card">
                     <q-card style="max-width: 300px, min-width: 200px">
                       <q-card-section>
                         <div class="text-h6">{{index}}</div>
@@ -61,6 +61,9 @@
 </template>
 
 <style>
+.card {
+  padding: 15px;
+}
 </style>
 
 <script>

@@ -70,7 +70,8 @@ module.exports = function (ctx) {
         'QRouteTab',
         'QSeparator',
         'QSpace',
-        'QBar'
+        'QBar',
+        'QTooltip'
       ],
 
       directives: [

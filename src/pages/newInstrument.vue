@@ -21,6 +21,9 @@
               label="Nombre del instrumento*"
               lazy-rules
               :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"/>
+            <q-stepper-navigation>
+              <q-btn @click="$refs.stepper.next()" color="primary" label="Continuar"/>
+            </q-stepper-navigation>
           </q-step>
           <q-step
             :name="2"
@@ -50,6 +53,10 @@
                   </div>
               </div>
             </div>
+            <q-stepper-navigation>
+              <q-btn @click="$refs.stepper.next()" color="primary" label="Continuar"/>
+              <q-btn @click="$refs.stepper.previous()" flat color="primary" label="Atras"/>
+            </q-stepper-navigation>
           </q-step>
           <q-step
             :name="3"
@@ -57,7 +64,7 @@
             caption="*"
             icon="create_new_folder"
             :done="step > 3"
-        >
+          >
             <div v-for="(rule, index) in rules " v-bind:key="index" class = "row">
               <div class="col-3">
               </div>
@@ -78,6 +85,10 @@
                   </div>
               </div>
             </div>
+            <q-stepper-navigation>
+              <q-btn @click="$refs.stepper.next()" color="primary" label="Continuar"/>
+              <q-btn @click="$refs.stepper.previous()" flat color="primary" label="Atras"/>
+            </q-stepper-navigation>
           </q-step>
           <q-step
             :name="4"
@@ -107,6 +118,10 @@
                 </div>
               </div>
             </div>
+            <q-stepper-navigation>
+              <q-btn @click="$refs.stepper.next()" color="primary" label="Continuar"/>
+              <q-btn @click="$refs.stepper.previous()" flat color="primary" label="Atras"/>
+            </q-stepper-navigation>
           </q-step>
           <q-step
             :name="5"
@@ -135,19 +150,11 @@
                 </div>
               </div>
             </div>
-          </q-step>
-          <template v-slot:navigation>
             <q-stepper-navigation>
-              <q-btn @click="if(validations(step) == 'error'){
-
-              }else if (step === 5){
-                  makeInstrument()
-              }else{
-                  $refs.stepper.next()
-              }" color="primary" :label="step === 5 ? 'Finalizar' : 'Continuar'" />
-              <q-btn v-if="step > 1" flat color="primary" @click="$refs.stepper.previous(),step === reduce(step)" label="Atras" class="q-ml-sm" />
+              <q-btn @click="makeInstrument()" color="primary" label="Finalizar"/>
+              <q-btn @click="$refs.stepper.previous()" flat color="primary" label="Atras"/>
             </q-stepper-navigation>
-           </template>
+          </q-step>
         </q-stepper>
     </div>
 </template>

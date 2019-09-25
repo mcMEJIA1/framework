@@ -25,16 +25,16 @@
                 <q-item-label header>Roles</q-item-label>
                 <div class="row" >
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="rols1"  label="Roles"/>
+                        <q-checkbox v-model="rols[0]"  label="Roles"/>
                     </q-item>
                 </div>
                 <q-item-label header>Metas</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat1"  label="Metas"/>
+                        <q-checkbox v-model="mat[0]"  label="Metas"/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="step1"  label="pasos"/>
+                        <q-checkbox v-model="steps[0]"  label="pasos"/>
                     </q-item>
               </q-list>
           </div>
@@ -58,16 +58,16 @@
                 <q-item-label header>Roles</q-item-label>
                 <div class="row" >
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="rols2"  label="Roles"/>
+                        <q-checkbox v-model="rols[1]"  label="Roles"/>
                     </q-item>
                 </div>
                 <q-item-label header>Metas</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat2"  label="Metas"/>
+                        <q-checkbox v-model="mat[1]"  label="Metas"/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="step2"  label="pasos"/>
+                        <q-checkbox v-model="steps[1]"  label="pasos"/>
                     </q-item>
               </q-list>
           </div>
@@ -91,16 +91,16 @@
                 <q-item-label header>Roles</q-item-label>
                 <div class="row" >
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="rols3"  label="Roles"/>
+                        <q-checkbox v-model="rols[2]"  label="Roles"/>
                     </q-item>
                 </div>
                 <q-item-label header>Metas</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat3"  label="Metas"/>
+                        <q-checkbox v-model="mat[2]"  label="Metas"/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="step3"  label="pasos"/>
+                        <q-checkbox v-model="steps[2]"  label="pasos"/>
                     </q-item>
               </q-list>
           </div>
@@ -148,32 +148,9 @@ export default {
       arrayObjectives8: [],
       arrayObjectives9: [],
       arrayObjectives10: [],
-      rols1: false,
-      rols2: false,
-      rols3: false,
-      rols4: false,
-      rols5: false,
-      rols6: false,
-      rols7: false,
-      rols8: false,
-      rols9: false,
-      rols10: false,
-      step1: false,
-      step2: false,
-      step3: false,
-      step4: false,
-      step5: false,
-      step6: false,
-      step7: false,
-      step8: false,
-      step9: false,
-      step10: false,
-      mat1: false,
-      mat2: false,
-      mat3: false,
-      mat4: false,
-      mat5: false,
-      mat6: false,
+      rols: [false, false, false, false, false, false, false, false, false, false],
+      steps: [false, false, false, false, false, false, false, false, false, false],
+      mat: [false, false, false, false, false, false, false, false, false, false],
       model: null
     }
   },

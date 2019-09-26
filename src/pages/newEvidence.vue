@@ -105,6 +105,237 @@
               </q-list>
           </div>
         </q-slide-transition>
+        <q-toggle  v-model="principles['Recompensas basadas en logros']" label='Recompensas basadas en logros' class="q-mb-md" />
+        <q-slide-transition>
+          <div v-show="principles['Recompensas basadas en logros']">
+              <q-list>
+                <q-item-label header>Reglas</q-item-label>
+                <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Objetivos</q-item-label>
+                <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Roles</q-item-label>
+                <div class="row" >
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="rols3"  label="Roles"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Metas</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="mat3"  label="Metas"/>
+                    </q-item>
+                <q-item-label header>Pasos</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="step3"  label="pasos"/>
+                    </q-item>
+              </q-list>
+          </div>
+        </q-slide-transition>
+        <q-toggle  v-model="principles['Logros adaptables']" label='Logros adaptables' class="q-mb-md" />
+        <q-slide-transition>
+          <div v-show="principles['Logros adaptables']">
+              <q-list>
+                <q-item-label header>Reglas</q-item-label>
+                <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Objetivos</q-item-label>
+                <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Roles</q-item-label>
+                <div class="row" >
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="rols3"  label="Roles"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Metas</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="mat3"  label="Metas"/>
+                    </q-item>
+                <q-item-label header>Pasos</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="step3"  label="pasos"/>
+                    </q-item>
+              </q-list>
+          </div>
+        </q-slide-transition>
+        <q-toggle  v-model="principles['Factores de diversion']" label='Factores de diversion' class="q-mb-md" />
+        <q-slide-transition>
+          <div v-show="principles['Factores de diversion']">
+              <q-list>
+                <q-item-label header>Reglas</q-item-label>
+                <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Objetivos</q-item-label>
+                <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Roles</q-item-label>
+                <div class="row" >
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="rols3"  label="Roles"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Metas</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="mat3"  label="Metas"/>
+                    </q-item>
+                <q-item-label header>Pasos</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="step3"  label="pasos"/>
+                    </q-item>
+              </q-list>
+          </div>
+        </q-slide-transition>
+        <q-toggle  v-model="principles['Transformador']" label='Transformador' class="q-mb-md" />
+        <q-slide-transition>
+          <div v-show="principles['Transformador']">
+              <q-list>
+                <q-item-label header>Reglas</q-item-label>
+                <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Objetivos</q-item-label>
+                <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Roles</q-item-label>
+                <div class="row" >
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="rols3"  label="Roles"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Metas</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="mat3"  label="Metas"/>
+                    </q-item>
+                <q-item-label header>Pasos</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="step3"  label="pasos"/>
+                    </q-item>
+              </q-list>
+          </div>
+        </q-slide-transition>
+        <q-toggle  v-model="principles['Orientado al bienestar']" label='Orientado al bienestar' class="q-mb-md" />
+        <q-slide-transition>
+          <div v-show="principles['Orientado al bienestar']">
+              <q-list>
+                <q-item-label header>Reglas</q-item-label>
+                <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Objetivos</q-item-label>
+                <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Roles</q-item-label>
+                <div class="row" >
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="rols3"  label="Roles"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Metas</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="mat3"  label="Metas"/>
+                    </q-item>
+                <q-item-label header>Pasos</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="step3"  label="pasos"/>
+                    </q-item>
+              </q-list>
+          </div>
+        </q-slide-transition>
+        <q-toggle  v-model="principles['Genera investigacion']" label='Genera investigacion' class="q-mb-md" />
+        <q-slide-transition>
+          <div v-show="principles['Genera investigacion']">
+              <q-list>
+                <q-item-label header>Reglas</q-item-label>
+                <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Objetivos</q-item-label>
+                <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Roles</q-item-label>
+                <div class="row" >
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="rols3"  label="Roles"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Metas</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="mat3"  label="Metas"/>
+                    </q-item>
+                <q-item-label header>Pasos</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="step3"  label="pasos"/>
+                    </q-item>
+              </q-list>
+          </div>
+        </q-slide-transition>
+        <q-toggle  v-model="principles['Basado en el conocimiento']" label='Basado en el conocimiento' class="q-mb-md" />
+        <q-slide-transition>
+          <div v-show="principles['Basado en el conocimiento']">
+              <q-list>
+                <q-item-label header>Reglas</q-item-label>
+                <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Objetivos</q-item-label>
+                <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Roles</q-item-label>
+                <div class="row" >
+                  <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="rols3"  label="Roles"/>
+                    </q-item>
+                </div>
+                <q-item-label header>Metas</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="mat3"  label="Metas"/>
+                    </q-item>
+                <q-item-label header>Pasos</q-item-label>
+                <q-item tag="label" v-ripple>
+                        <q-checkbox v-model="step3"  label="pasos"/>
+                    </q-item>
+              </q-list>
+          </div>
+        </q-slide-transition>
   </div>
   <div class="col-12"></div>
   <q-btn color="primary" label="Evaluar"  class="q-ml-sm"/>

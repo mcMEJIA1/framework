@@ -28,9 +28,9 @@
                         <q-checkbox v-model="rols[0]"  label="Roles"/>
                     </q-item>
                 </div>
-                <q-item-label header>Metas</q-item-label>
+                <q-item-label header></q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat[0]"  label="Metas"/>
+                        <q-checkbox v-model="mat[0]"  label=""/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>
@@ -61,9 +61,9 @@
                         <q-checkbox v-model="rols[1]"  label="Roles"/>
                     </q-item>
                 </div>
-                <q-item-label header>Metas</q-item-label>
+                <q-item-label header>Materiales</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat[1]"  label="Metas"/>
+                        <q-checkbox v-model="mat[1]"  label="Materiales"/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>
@@ -94,9 +94,9 @@
                         <q-checkbox v-model="rols[2]"  label="Roles"/>
                     </q-item>
                 </div>
-                <q-item-label header>Metas</q-item-label>
+                <q-item-label header>Materiales</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat[2]"  label="Metas"/>
+                        <q-checkbox v-model="mat[2]"  label="Materiales"/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>
@@ -112,13 +112,13 @@
                 <q-item-label header>Reglas</q-item-label>
                 <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayRules4" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Objetivos</q-item-label>
                 <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayObjectives4" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Roles</q-item-label>
@@ -127,9 +127,9 @@
                         <q-checkbox v-model="rols3"  label="Roles"/>
                     </q-item>
                 </div>
-                <q-item-label header>Metas</q-item-label>
+                <q-item-label header>Materiales</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat3"  label="Metas"/>
+                        <q-checkbox v-model="mat3"  label="Materiales"/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>
@@ -145,13 +145,13 @@
                 <q-item-label header>Reglas</q-item-label>
                 <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayRules5" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Objetivos</q-item-label>
                 <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayObjectives5" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Roles</q-item-label>
@@ -160,9 +160,9 @@
                         <q-checkbox v-model="rols3"  label="Roles"/>
                     </q-item>
                 </div>
-                <q-item-label header>Metas</q-item-label>
+                <q-item-label header>Materiales</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat3"  label="Metas"/>
+                        <q-checkbox v-model="mat3"  label="Materiales"/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>
@@ -178,13 +178,13 @@
                 <q-item-label header>Reglas</q-item-label>
                 <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayRules6" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Objetivos</q-item-label>
                 <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayObjectives6" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Roles</q-item-label>
@@ -193,9 +193,9 @@
                         <q-checkbox v-model="rols3"  label="Roles"/>
                     </q-item>
                 </div>
-                <q-item-label header>Metas</q-item-label>
+                <q-item-label header>Materiales</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat3"  label="Metas"/>
+                        <q-checkbox v-model="mat3"  label="Materiales"/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>
@@ -211,13 +211,13 @@
                 <q-item-label header>Reglas</q-item-label>
                 <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayRules7" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Objetivos</q-item-label>
                 <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayObjectives7" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Roles</q-item-label>
@@ -226,9 +226,9 @@
                         <q-checkbox v-model="rols3"  label="Roles"/>
                     </q-item>
                 </div>
-                <q-item-label header>Metas</q-item-label>
+                <q-item-label header>Materiales</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat3"  label="Metas"/>
+                        <q-checkbox v-model="mat3"  label="Materiales"/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>
@@ -244,13 +244,13 @@
                 <q-item-label header>Reglas</q-item-label>
                 <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayRules8" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Objetivos</q-item-label>
                 <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayObjectives8" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Roles</q-item-label>
@@ -259,9 +259,9 @@
                         <q-checkbox v-model="rols3"  label="Roles"/>
                     </q-item>
                 </div>
-                <q-item-label header>Metas</q-item-label>
+                <q-item-label header>Materiales</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat3"  label="Metas"/>
+                        <q-checkbox v-model="mat3"  label="Materiales"/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>
@@ -277,13 +277,13 @@
                 <q-item-label header>Reglas</q-item-label>
                 <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayRules9" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Objetivos</q-item-label>
                 <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayObjectives9" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Roles</q-item-label>
@@ -292,9 +292,9 @@
                         <q-checkbox v-model="rols3"  label="Roles"/>
                     </q-item>
                 </div>
-                <q-item-label header>Metas</q-item-label>
+                <q-item-label header>Materiales</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat3"  label="Metas"/>
+                        <q-checkbox v-model="mat3"  label="Materiales"/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>
@@ -310,13 +310,13 @@
                 <q-item-label header>Reglas</q-item-label>
                 <div class="row" v-for="(item, index) in returnRules(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayRules3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayRules10" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Objetivos</q-item-label>
                 <div class="row" v-for="(item, index) in returnObj(selected())" v-bind:key="index">
                   <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="arrayObjectives3" :val="index" :label="Object.values(item)"/>
+                        <q-checkbox v-model="arrayObjectives10" :val="index" :label="Object.values(item)"/>
                     </q-item>
                 </div>
                 <q-item-label header>Roles</q-item-label>
@@ -325,9 +325,9 @@
                         <q-checkbox v-model="rols3"  label="Roles"/>
                     </q-item>
                 </div>
-                <q-item-label header>Metas</q-item-label>
+                <q-item-label header>Materiales</q-item-label>
                 <q-item tag="label" v-ripple>
-                        <q-checkbox v-model="mat3"  label="Metas"/>
+                        <q-checkbox v-model="mat3"  label="Materiales"/>
                     </q-item>
                 <q-item-label header>Pasos</q-item-label>
                 <q-item tag="label" v-ripple>

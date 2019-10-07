@@ -71,7 +71,14 @@ module.exports = function (ctx) {
         'QSeparator',
         'QSpace',
         'QBar',
-        'QTooltip'
+        'QTooltip',
+        'QTd',
+        'QTh',
+        'QTr',
+        'QTabPanel',
+        'QTabPanels',
+        'QTabs',
+        'QTab'
       ],
 
       directives: [

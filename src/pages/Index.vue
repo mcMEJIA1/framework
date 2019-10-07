@@ -1,21 +1,47 @@
 <template>
   <div class="container">
-    <div v-for="(item, index) in getInstruments()" v-bind:key="index">
-      <div class="q-pa-md row items-start q-gutter-md" style="min-width: 400px">
-        <q-card class="my-card" @click="alert = true, obtener(item)" style="min-width: 400px">
+    {{axiosInstruments()}}
+    <q-sapacer></q-sapacer>
+    <div row justify-center wrap xs12>
+      <q-card>
+        <q-card-title>
+          <q-spacer></q-spacer>
           <q-card-section>
-            <div class="text-h6">
-              {{item.name}}
-            </div>
+            <q-table
+            title="Instrummentos"
+              :columns="columns"
+              :data="items"
+              row-key="name"
+              :filter="filter"
+              binary-state-sort
+              :rows-per-page-options="[50,100,200]"
+              rows-per-page-label="Items por página"
+            >
+            <template v-slot:top-right>
+              <q-input outlined v-model="filter" placeholder="Buscar" >
+                <template v-slot:append>
+                  <q-icon name="search" />
+                </template>
+              </q-input>
+            </template>
+            <q-tr slot="body" slot-scope="props" :props="props">
+              <q-td>{{props.row.name}}</q-td>
+              <q-td>
+                <q-btn outlined @click="alert = true, obtener(props.row)">
+                  Consultar
+                </q-btn>
+              </q-td>
+            </q-tr>
+            </q-table>
           </q-card-section>
-        </q-card>
-      </div>
+        </q-card-title>
+      </q-card>
     </div>
     <q-dialog v-model="alert" persistent
-              :maximized="maximizedToggle"
+              :maximized="mnimizedToggle"
               transition-show="slide-up"
               transition-hide="slide-down">
-      <q-card class="bg-primary">
+      <q-card>
         <q-bar>
           <q-space ></q-space>
           <q-btn dense flat icon="minimize" @click="maximizedToggle = false" :disable="!maximizedToggle">
@@ -29,29 +55,68 @@
           </q-btn>
         </q-bar>
         <q-card-section>
-          <div class="text-h6" v-for="(item, index) in mostrar()" v-bind:key="index">
-              <div v-if=" Array.isArray(item)">
-                  <div class="col card">
-                    <q-card style="max-width: 300px, min-width: 200px">
-                      <q-card-section>
-                        <div class="text-h6">{{index}}</div>
-                      </q-card-section>
-                      <q-separator inset />
-                      <q-card-section>
-                        <div v-for="(it, index2) in item" v-bind:key="index2">
-                          <div v-if="typeof it === 'object'">
-                            {{Object.values(it).toString()}}
-                          </div>
-                          <div v-else>
-                            {{it}}
-                          </div>
-                        </div>
-                      </q-card-section>
-                    </q-card>
-                  </div>
-                <q-space/>
+          <div v-if="dataObj != null"><div class="text-h6" style="text-align: center">{{dataObj['name']}}</div></div>
+        </q-card-section>
+        <q-card-section>
+          <q-tabs v-model="tab" class="text-teal">
+            <div class="text-h6" v-for="(item, index) in dataObj" v-bind:key="index">
+                <div v-if=" Array.isArray(item)">
+                    <q-tab :label="index" :name="index" />
+                </div>
+            </div>
+          </q-tabs>
+          <q-tab-panels v-model="tab" animated>
+            <q-tab-panel name="Reglas">
+              <div v-if="dataObj != null">
+                <div v-for="(item, index) in dataObj['Reglas']" v-bind:key="index">
+                  {{item}}
+                </div>
               </div>
-          </div>
+              <div v-else>
+                No data
+              </div>
+            </q-tab-panel>
+            <q-tab-panel name="Objetivos">
+              <div v-if="dataObj != null">
+                <div v-for="(item, index) in dataObj['Objetivos']" v-bind:key="index">
+                  {{item}}
+                </div>
+              </div>
+              <div v-else>
+                No data
+              </div>
+            </q-tab-panel>
+            <q-tab-panel name="Roles">
+              <div v-if="dataObj != null">
+                <div v-for="(item, index) in dataObj['Roles']" v-bind:key="index">
+                  {{item}}
+                </div>
+              </div>
+              <div v-else>
+                No data
+              </div>
+            </q-tab-panel>
+            <q-tab-panel name="Pasos">
+              <div v-if="dataObj != null">
+                <div v-for="(item, index) in dataObj['Pasos']" v-bind:key="index">
+                  {{item}}
+                </div>
+              </div>
+              <div v-else>
+                No data
+              </div>
+            </q-tab-panel>
+            <q-tab-panel name="Materiales">
+              <div v-if="dataObj != null">
+                <div v-for="(item, index) in dataObj['Maateriales']" v-bind:key="index">
+                  {{item}}
+                </div>
+              </div>
+              <div v-else>
+                No data
+              </div>
+            </q-tab-panel>
+          </q-tab-panels>
         </q-card-section>
         <q-card-section>
         </q-card-section>
@@ -73,7 +138,16 @@ export default {
   data () {
     return {
       alert: false,
-      maximizedToggle: true
+      maximizedToggle: true,
+      items: {},
+      token: '',
+      filter: '',
+      columns: [
+        { name: 'name', label: 'Nombre', field: row => row.name, align: 'left' },
+        { label: 'Acciones', align: 'left' }
+      ],
+      tab: 'one',
+      dataObj
     }
   },
   methods: {
@@ -82,11 +156,37 @@ export default {
       return instruments
     },
     obtener (object) {
-      dataObj = object
+      this.dataObj = object
       return object
     },
     mostrar () {
       return dataObj
+    },
+    getToken () {
+      let login = {
+        username: 'admin',
+        password: 'admin'
+      }
+      this.$axios.post('https://meejel-back.herokuapp.com/api/v1/api-token-auth/', login)
+        .then(res => {
+          this.token = res.data.token
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    axiosInstruments () {
+      this.items = this.getInstruments()
+      console.log(this.items)
+      this.getToken()
+      let tkn = this.token
+      this.$axios.get('https://meejel-back.herokuapp.com/api/v1/instrument/', { headers: { Authorization: 'Bearer ' + tkn } })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

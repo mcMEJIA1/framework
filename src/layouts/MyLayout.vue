@@ -15,11 +15,6 @@
       </q-tabs>
     </q-header>
 
-    <q-drawer v-model="left" side="left" overlay bordered>
-      <!-- drawer content -->
-      <q-route-tab to="/Index" label="Page Two" />
-    </q-drawer>
-
     <q-page-container>
       <router-view />
     </q-page-container>

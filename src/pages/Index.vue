@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    {{axiosInstruments()}}
     <q-sapacer></q-sapacer>
     <div row justify-center wrap xs12>
       <q-card>
@@ -8,7 +7,7 @@
           <q-spacer></q-spacer>
           <q-card-section>
             <q-table
-            title="Instrummentos"
+              title="Instrummentos"
               :columns="columns"
               :data="items"
               row-key="name"
@@ -68,7 +67,7 @@
             <q-tab-panel name="Reglas">
               <div v-if="dataObj != null">
                 <div v-for="(item, index) in dataObj['Reglas']" v-bind:key="index">
-                  {{Object.values(item)[0]}}
+                  {{item.Rname}}
                 </div>
               </div>
               <div v-else>
@@ -78,7 +77,7 @@
             <q-tab-panel name="Objetivos">
               <div v-if="dataObj != null">
                 <div v-for="(item, index) in dataObj['Objetivos']" v-bind:key="index">
-                  {{Object.values(item)[0]}}
+                  {{item.Oname}}
                 </div>
               </div>
               <div v-else>
@@ -88,7 +87,7 @@
             <q-tab-panel name="Roles">
               <div v-if="dataObj != null">
                 <div v-for="(item, index) in dataObj['Roles']" v-bind:key="index">
-                  {{Object.values(item)[0]}}
+                  {{item.Roname}}
                 </div>
               </div>
               <div v-else>
@@ -98,7 +97,7 @@
             <q-tab-panel name="Pasos">
               <div v-if="dataObj != null">
                 <div v-for="(item, index) in dataObj['Pasos']" v-bind:key="index">
-                  {{Object.values(item)[0]}}
+                  {{item.Sname}}
                 </div>
               </div>
               <div v-else>
@@ -117,10 +116,9 @@
             </q-tab-panel>
           </q-tab-panels>
         </q-card-section>
-        <q-card-section>
-        </q-card-section>
       </q-card>
     </q-dialog>
+    {{clean()}}
   </div>
 </template>
 
@@ -131,12 +129,12 @@
 </style>
 
 <script>
-import { functions } from '../services/newinstrument.TARGET'
+// import { functions } from '../services/newinstrument.TARGET'
 import { LocalStorage } from 'quasar'
 let dataObj = null
 export default {
   beforeMount () {
-    this.token = LocalStorage.getItem('token')
+    this.start()
   },
   data () {
     return {
@@ -154,28 +152,31 @@ export default {
     }
   },
   methods: {
-    getInstruments () {
-      let instruments = functions('get', null)
-      return instruments
+    start () {
+      this.token = LocalStorage.getItem('token')
+      this.axiosInstruments()
     },
     obtener (object) {
       this.dataObj = object
-      return object
     },
     mostrar () {
       return dataObj
     },
     axiosInstruments () {
-      this.items = this.getInstruments()
-      console.log(this.items)
       let tkn = this.token
       this.$axios.get('https://meejel-back.herokuapp.com/api/v1/instrument/', { headers: { Authorization: 'Bearer ' + tkn } })
         .then(res => {
-          console.log(res)
+          this.items = res.data
+          console.log(res.data)
         })
         .catch(err => {
           console.log(err)
         })
+    },
+    clean () {
+      this.items.forEach(element => {
+        console.log(element)
+      })
     }
   }
 }

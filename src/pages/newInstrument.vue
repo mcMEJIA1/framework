@@ -188,16 +188,20 @@
             </q-stepper-navigation>
           </q-step>
         </q-stepper>
+        {{data}}
     </div>
 </template>
 <style>
 
 </style>
 <script>
-import { Notify } from 'quasar'
-import { functions } from '../services/newinstrument.TARGET'
+import { Notify, LocalStorage } from 'quasar'
+// import { functions } from '../services/newinstrument.TARGET'
 
 export default {
+  beforeMount () {
+    this.token = LocalStorage.getItem('token')
+  },
   data () {
     return {
       step: 1,
@@ -214,7 +218,9 @@ export default {
       Oname: '',
       Roname: '',
       Sname: '',
-      Maname: ''
+      Maname: '',
+      token: '',
+      data: {}
     }
   },
   watch: {
@@ -318,31 +324,34 @@ export default {
         }
       }
     },
-    makeInstrument2 () {
-      let contador = 3
-      let newInstrument = { 'id': contador, 'name': this.name, 'Reglas': Object.values(this.rules), 'Objetivos': Object.values(this.objectives), 'Roles': Object.values(this.rols), 'Pasos': Object.values(this.steps), 'Materiales': Object.values(this.materials) }
-      return newInstrument
-    },
     makeInstrument () {
-      let contador = 3
-      let newInstrument = { 'id': contador, 'name': this.name, 'Reglas': Object.values(this.rules), 'Objetivos': Object.values(this.objectives), 'Roles': Object.values(this.rols), 'Pasos': Object.values(this.steps), 'Materiales': Object.values(this.materials) }
+      console.log(this.token)
+      let newInstrument = { 'name': this.name, 'Reglas': Object.values(this.rules), 'Objetivos': Object.values(this.objectives), 'Roles': Object.values(this.rols), 'Pasos': Object.values(this.steps) }
       console.log(newInstrument)
-      let response = functions('post', newInstrument)
-      contador += 1
+      this.data = newInstrument
+      this.$axios.post('https://meejel-back.herokuapp.com/api/v1/instrument/', newInstrument, { headers: { Authorization: 'Bearer ' + this.token } })
+        .then(res => {
+          console.log(res)
+          this.setInitState()
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      // let response = functions('post', newInstrument)
+    },
+    setInitState () {
+      Notify.create('Se ha agregado correctamente su instrumento')
       this.step = 1
-      if (response) {
-        Notify.create('Se ha agregado correctamente su instrumento')
-        this.name = ''
-        this.rols = []
-        this.objectives = []
-        this.rules = []
-        this.steps = []
-        this.materials = []
-        this.addstep()
-        this.addrule()
-        this.addObj()
-        this.addRol()
-      }
+      this.name = ''
+      this.rols = []
+      this.objectives = []
+      this.rules = []
+      this.steps = []
+      this.materials = []
+      this.addstep()
+      this.addrule()
+      this.addObj()
+      this.addRol()
     }
   },
   mounted () {

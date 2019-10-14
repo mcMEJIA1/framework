@@ -4,7 +4,7 @@
     <q-sapacer></q-sapacer>
     <div row justify-center wrap xs12>
       <q-card>
-        <q-card-title>
+        <q-card-section>
           <q-spacer></q-spacer>
           <q-card-section>
             <q-table
@@ -34,11 +34,10 @@
             </q-tr>
             </q-table>
           </q-card-section>
-        </q-card-title>
+        </q-card-section>
       </q-card>
     </div>
     <q-dialog v-model="alert" persistent
-              :maximized="mnimizedToggle"
               transition-show="slide-up"
               transition-hide="slide-down">
       <q-card>
@@ -69,7 +68,7 @@
             <q-tab-panel name="Reglas">
               <div v-if="dataObj != null">
                 <div v-for="(item, index) in dataObj['Reglas']" v-bind:key="index">
-                  {{item}}
+                  {{Object.values(item)[0]}}
                 </div>
               </div>
               <div v-else>
@@ -79,7 +78,7 @@
             <q-tab-panel name="Objetivos">
               <div v-if="dataObj != null">
                 <div v-for="(item, index) in dataObj['Objetivos']" v-bind:key="index">
-                  {{item}}
+                  {{Object.values(item)[0]}}
                 </div>
               </div>
               <div v-else>
@@ -89,7 +88,7 @@
             <q-tab-panel name="Roles">
               <div v-if="dataObj != null">
                 <div v-for="(item, index) in dataObj['Roles']" v-bind:key="index">
-                  {{item}}
+                  {{Object.values(item)[0]}}
                 </div>
               </div>
               <div v-else>
@@ -99,7 +98,7 @@
             <q-tab-panel name="Pasos">
               <div v-if="dataObj != null">
                 <div v-for="(item, index) in dataObj['Pasos']" v-bind:key="index">
-                  {{item}}
+                  {{Object.values(item)[0]}}
                 </div>
               </div>
               <div v-else>
@@ -108,8 +107,8 @@
             </q-tab-panel>
             <q-tab-panel name="Materiales">
               <div v-if="dataObj != null">
-                <div v-for="(item, index) in dataObj['Maateriales']" v-bind:key="index">
-                  {{item}}
+                <div v-for="(item, index) in dataObj['Materiales']" v-bind:key="index">
+                  {{Object.values(item)[0]}}
                 </div>
               </div>
               <div v-else>
@@ -133,8 +132,12 @@
 
 <script>
 import { functions } from '../services/newinstrument.TARGET'
+import { LocalStorage } from 'quasar'
 let dataObj = null
 export default {
+  beforeMount () {
+    this.token = LocalStorage.getItem('token')
+  },
   data () {
     return {
       alert: false,
@@ -162,23 +165,9 @@ export default {
     mostrar () {
       return dataObj
     },
-    getToken () {
-      let login = {
-        username: 'admin',
-        password: 'admin'
-      }
-      this.$axios.post('https://meejel-back.herokuapp.com/api/v1/api-token-auth/', login)
-        .then(res => {
-          this.token = res.data.token
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     axiosInstruments () {
       this.items = this.getInstruments()
       console.log(this.items)
-      this.getToken()
       let tkn = this.token
       this.$axios.get('https://meejel-back.herokuapp.com/api/v1/instrument/', { headers: { Authorization: 'Bearer ' + tkn } })
         .then(res => {

@@ -143,8 +143,40 @@
               </div>
               <div class="col-lg-2">
                 <div class="block float-right">
-                  <q-btn @click="removeRol(index)" icon="delete" round/>
+                  <q-btn @click="removestep(index)" icon="delete" round/>
                   <q-btn v-if="index + 1 === steps.length" @click="addstep" round>
+                    <v-icon class="text-h4">+</v-icon>
+                  </q-btn>
+                </div>
+              </div>
+            </div>
+            <q-stepper-navigation>
+              <q-btn @click="$refs.stepper.next()" color="primary" label="Continuar"/>
+              <q-btn @click="$refs.stepper.previous()" flat color="primary" label="Atras"/>
+            </q-stepper-navigation>
+          </q-step>
+          <q-step
+            :name="6"
+            title="Añada los materiales de su instrumento"
+            caption="*"
+            icon="create_new_folder"
+          >
+            <div v-for="(material,index) in materials" v-bind:key="index" class="row">
+              <div class="col-3">
+              </div>
+              <div class="col-5">
+                <q-input
+                  rounded outlined
+                  v-model="material.Maname"
+                  label="Material*"
+                  lazy-rules
+                  :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
+                />
+              </div>
+              <div class="col-lg-2">
+                <div class="block float-right">
+                  <q-btn @click="removeMaterial(index)" icon="delete" round/>
+                  <q-btn v-if="index + 1 === materials.length" @click="addMaterial" round>
                     <v-icon class="text-h4">+</v-icon>
                   </q-btn>
                 </div>
@@ -173,6 +205,7 @@ export default {
       objectives: [],
       rols: [],
       steps: [],
+      materials: [],
       blockRemoval: true,
       text: '',
       accept: false,
@@ -181,7 +214,7 @@ export default {
       Oname: '',
       Roname: '',
       Sname: '',
-      pname: ''
+      Maname: ''
     }
   },
   watch: {
@@ -196,6 +229,9 @@ export default {
     },
     steps () {
       this.blockRemoval = this.steps.length <= 1
+    },
+    materials () {
+      this.blockRemoval = this.materials.length <= 1
     }
   },
   methods: {
@@ -239,6 +275,16 @@ export default {
     removestep (stepId) {
       if (!this.blockRemoval) this.steps.splice(stepId)
     },
+    addMaterial () {
+      let checkEmpty = this.materials.filter(material => material.Maname === null)
+      if (checkEmpty.length >= 1 && this.materials.length > 0) return
+      this.materials.push({
+        Maname: null
+      })
+    },
+    removeMaterial (materialId) {
+      if (!this.blockRemoval) this.materials.splice(materialId)
+    },
     reduce (step) {
       return step--
     },
@@ -274,12 +320,12 @@ export default {
     },
     makeInstrument2 () {
       let contador = 3
-      let newInstrument = { 'id': contador, 'name': this.name, 'Reglas': Object.values(this.rules), 'Objetivos': Object.values(this.objectives), 'Roles': Object.values(this.rols), 'Pasos': Object.values(this.steps) }
+      let newInstrument = { 'id': contador, 'name': this.name, 'Reglas': Object.values(this.rules), 'Objetivos': Object.values(this.objectives), 'Roles': Object.values(this.rols), 'Pasos': Object.values(this.steps), 'Materiales': Object.values(this.materials) }
       return newInstrument
     },
     makeInstrument () {
       let contador = 3
-      let newInstrument = { 'id': contador, 'name': this.name, 'Reglas': Object.values(this.rules), 'Objetivos': Object.values(this.objectives), 'Roles': Object.values(this.rols), 'Pasos': Object.values(this.steps) }
+      let newInstrument = { 'id': contador, 'name': this.name, 'Reglas': Object.values(this.rules), 'Objetivos': Object.values(this.objectives), 'Roles': Object.values(this.rols), 'Pasos': Object.values(this.steps), 'Materiales': Object.values(this.materials) }
       console.log(newInstrument)
       let response = functions('post', newInstrument)
       contador += 1
@@ -291,6 +337,7 @@ export default {
         this.objectives = []
         this.rules = []
         this.steps = []
+        this.materials = []
         this.addstep()
         this.addrule()
         this.addObj()
@@ -303,6 +350,7 @@ export default {
     this.addObj()
     this.addRol()
     this.addstep()
+    this.addMaterial()
   }
 }
 

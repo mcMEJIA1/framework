@@ -5,8 +5,10 @@
       <q-select v-model="model" :options="Object.keys(makeOptions())" label="Instrumento" class="text-center" ></q-select>
     </div>
   </div>
-  <div class="q-pa-md col-12" style="max-width: 500px;">
-    <q-toggle  v-model="principles['Orientacion']" label='Orientacion' class="q-mb-md" />
+  <div class="q-pa-md col-12" style="max-width: 80%; margin-left: 12%">
+    <div class="row">
+      <div class="col">
+        <q-toggle  v-model="principles['Orientacion']" label='Orientacion' class="q-mb-md" />
         <q-slide-transition>
           <div v-show="principles['Orientacion']">
               <q-list>
@@ -39,7 +41,9 @@
               </q-list>
           </div>
         </q-slide-transition>
-    <q-toggle  v-model="principles['Elementos persuasivos']" label='Elementos persuasivos' class="q-mb-md" />
+      </div>
+      <div class="col">
+        <q-toggle  v-model="principles['Elementos persuasivos']" label='Elementos persuasivos' class="q-mb-md" />
         <q-slide-transition>
           <div v-show="principles['Elementos persuasivos']">
               <q-list>
@@ -72,7 +76,9 @@
               </q-list>
           </div>
         </q-slide-transition>
-    <q-toggle  v-model="principles['Orientacion de aprendizaje']" label='Orientacion de aprendizaje' class="q-mb-md" />
+      </div>
+      <div class="col">
+        <q-toggle  v-model="principles['Orientacion de aprendizaje']" label='Orientacion de aprendizaje' class="q-mb-md" />
         <q-slide-transition>
           <div v-show="principles['Orientacion de aprendizaje']">
               <q-list>
@@ -105,6 +111,10 @@
               </q-list>
           </div>
         </q-slide-transition>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
         <q-toggle  v-model="principles['Recompensas basadas en logros']" label='Recompensas basadas en logros' class="q-mb-md" />
         <q-slide-transition>
           <div v-show="principles['Recompensas basadas en logros']">
@@ -138,6 +148,8 @@
               </q-list>
           </div>
         </q-slide-transition>
+      </div>
+      <div class="col">
         <q-toggle  v-model="principles['Logros adaptables']" label='Logros adaptables' class="q-mb-md" />
         <q-slide-transition>
           <div v-show="principles['Logros adaptables']">
@@ -171,6 +183,8 @@
               </q-list>
           </div>
         </q-slide-transition>
+      </div>
+      <div class="col">
         <q-toggle  v-model="principles['Factores de diversion']" label='Factores de diversion' class="q-mb-md" />
         <q-slide-transition>
           <div v-show="principles['Factores de diversion']">
@@ -204,7 +218,10 @@
               </q-list>
           </div>
         </q-slide-transition>
-        <q-toggle  v-model="principles['Transformador']" label='Transformador' class="q-mb-md" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col"><q-toggle  v-model="principles['Transformador']" label='Transformador' class="q-mb-md" />
         <q-slide-transition>
           <div v-show="principles['Transformador']">
               <q-list>
@@ -236,7 +253,8 @@
                     </q-item>
               </q-list>
           </div>
-        </q-slide-transition>
+        </q-slide-transition></div>
+      <div class="col">
         <q-toggle  v-model="principles['Orientado al bienestar']" label='Orientado al bienestar' class="q-mb-md" />
         <q-slide-transition>
           <div v-show="principles['Orientado al bienestar']">
@@ -270,6 +288,8 @@
               </q-list>
           </div>
         </q-slide-transition>
+      </div>
+      <div class="col">
         <q-toggle  v-model="principles['Genera investigacion']" label='Genera investigacion' class="q-mb-md" />
         <q-slide-transition>
           <div v-show="principles['Genera investigacion']">
@@ -303,6 +323,8 @@
               </q-list>
           </div>
         </q-slide-transition>
+      </div>
+    </div>
         <q-toggle  v-model="principles['Basado en el conocimiento']" label='Basado en el conocimiento' class="q-mb-md" />
         <q-slide-transition>
           <div v-show="principles['Basado en el conocimiento']">

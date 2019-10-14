@@ -78,7 +78,8 @@ module.exports = function (ctx) {
         'QTabPanel',
         'QTabPanels',
         'QTabs',
-        'QTab'
+        'QTab',
+        'QForm'
       ],
 
       directives: [
@@ -88,7 +89,9 @@ module.exports = function (ctx) {
 
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'LocalStorage',
+        'SessionStorage'
       ]
     },
 

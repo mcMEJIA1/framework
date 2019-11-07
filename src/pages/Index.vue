@@ -2,10 +2,6 @@
   <div class="container">
     <q-sapacer></q-sapacer>
     <div row justify-center wrap xs12>
-      <q-card>
-        <q-card-section>
-          <q-spacer></q-spacer>
-          <q-card-section>
             <q-table
               title="Instrummentos"
               :columns="columns"
@@ -32,9 +28,6 @@
               </q-td>
             </q-tr>
             </q-table>
-          </q-card-section>
-        </q-card-section>
-      </q-card>
     </div>
     <q-dialog v-model="alert" persistent
               transition-show="slide-up"
@@ -107,7 +100,7 @@
             <q-tab-panel name="Materiales">
               <div v-if="dataObj != null">
                 <div v-for="(item, index) in dataObj['Materiales']" v-bind:key="index">
-                  {{Object.values(item)[0]}}
+                  {{item.Maname}}
                 </div>
               </div>
               <div v-else>

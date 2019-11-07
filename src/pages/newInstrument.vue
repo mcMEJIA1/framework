@@ -188,7 +188,6 @@
             </q-stepper-navigation>
           </q-step>
         </q-stepper>
-        {{data}}
     </div>
 </template>
 <style>
@@ -326,7 +325,7 @@ export default {
     },
     makeInstrument () {
       console.log(this.token)
-      let newInstrument = { 'name': this.name, 'Reglas': Object.values(this.rules), 'Objetivos': Object.values(this.objectives), 'Roles': Object.values(this.rols), 'Pasos': Object.values(this.steps) }
+      let newInstrument = { 'name': this.name, 'Reglas': Object.values(this.rules), 'Objetivos': Object.values(this.objectives), 'Roles': Object.values(this.rols), 'Pasos': Object.values(this.steps), 'Materiales': Object.values(this.materials) }
       console.log(newInstrument)
       this.data = newInstrument
       this.$axios.post('https://meejel-back.herokuapp.com/api/v1/instrument/', newInstrument, { headers: { Authorization: 'Bearer ' + this.token } })

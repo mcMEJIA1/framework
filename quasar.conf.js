@@ -79,7 +79,8 @@ module.exports = function (ctx) {
         'QTabPanels',
         'QTabs',
         'QTab',
-        'QForm'
+        'QForm',
+        'QCircularProgress'
       ],
 
       directives: [

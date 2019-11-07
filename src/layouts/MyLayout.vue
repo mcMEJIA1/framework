@@ -9,9 +9,10 @@
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="/newInstrument" label="Añadir instrumento"/>
         <q-route-tab to="/instruments" label="Instrumentos" />
+        <q-route-tab to="/newInstrument" label="Añadir instrumento"/>
         <q-route-tab to="/newEvidence" label="Añadir evidencias"/>
+        <q-route-tab to="/evaluations" label="Evaluaciones"/>
       </q-tabs>
     </q-header>
 

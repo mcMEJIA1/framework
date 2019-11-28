@@ -80,7 +80,8 @@ module.exports = function (ctx) {
         'QTabs',
         'QTab',
         'QForm',
-        'QCircularProgress'
+        'QCircularProgress',
+        'QSpace'
       ],
 
       directives: [

@@ -1,17 +1,17 @@
 <template>
   <div class="container">
-    <q-sapacer></q-sapacer>
-    <div row justify-center wrap xs12>
-            <q-table
-              title="Instrummentos"
-              :columns="columns"
-              :data="items"
-              row-key="name"
-              :filter="filter"
-              binary-state-sort
-              :rows-per-page-options="[50,100,200]"
-              rows-per-page-label="Items por página"
-            >
+    <q-space></q-space>
+    <div row justify-center wrap xs12 max-width="0%">
+          <q-table
+            title="Instrummentos"
+            :columns="columns"
+            :data="items"
+            row-key="name"
+            :filter="filter"
+            binary-state-sort
+            :rows-per-page-options="[50,100,200]"
+            rows-per-page-label="Items por página"
+          >
             <template v-slot:top-right>
               <q-input outlined v-model="filter" placeholder="Buscar" >
                 <template v-slot:append>
@@ -27,7 +27,7 @@
                 </q-btn>
               </q-td>
             </q-tr>
-            </q-table>
+          </q-table>
     </div>
     <q-dialog v-model="alert" persistent
               transition-show="slide-up"
@@ -49,62 +49,20 @@
           <div v-if="dataObj != null"><div class="text-h6" style="text-align: center">{{dataObj['name']}}</div></div>
         </q-card-section>
         <q-card-section>
-          <q-tabs v-model="tab" class="text-teal">
+          <q-tabs v-model="tab">
             <div class="text-h6" v-for="(item, index) in dataObj" v-bind:key="index">
                 <div v-if=" Array.isArray(item)">
                     <q-tab :label="index" :name="index" />
+                    {{dataObj.length}}
                 </div>
             </div>
           </q-tabs>
           <q-tab-panels v-model="tab" animated>
-            <q-tab-panel name="Reglas">
-              <div v-if="dataObj != null">
-                <div v-for="(item, index) in dataObj['Reglas']" v-bind:key="index">
-                  {{item.Rname}}
+            <q-tab-panel  v-for="(item, index) in dataObj" v-bind:key="index" :name="index">
+              <div v-if="Array.isArray(item)">
+                <div v-for="(some, index) in item" :key="index">
+                  <span>{{Object.values(some)[1]}}</span>
                 </div>
-              </div>
-              <div v-else>
-                No data
-              </div>
-            </q-tab-panel>
-            <q-tab-panel name="Objetivos">
-              <div v-if="dataObj != null">
-                <div v-for="(item, index) in dataObj['Objetivos']" v-bind:key="index">
-                  {{item.Oname}}
-                </div>
-              </div>
-              <div v-else>
-                No data
-              </div>
-            </q-tab-panel>
-            <q-tab-panel name="Roles">
-              <div v-if="dataObj != null">
-                <div v-for="(item, index) in dataObj['Roles']" v-bind:key="index">
-                  {{item.Roname}}
-                </div>
-              </div>
-              <div v-else>
-                No data
-              </div>
-            </q-tab-panel>
-            <q-tab-panel name="Pasos">
-              <div v-if="dataObj != null">
-                <div v-for="(item, index) in dataObj['Pasos']" v-bind:key="index">
-                  {{item.Sname}}
-                </div>
-              </div>
-              <div v-else>
-                No data
-              </div>
-            </q-tab-panel>
-            <q-tab-panel name="Materiales">
-              <div v-if="dataObj != null">
-                <div v-for="(item, index) in dataObj['Materiales']" v-bind:key="index">
-                  {{item.Maname}}
-                </div>
-              </div>
-              <div v-else>
-                No data
               </div>
             </q-tab-panel>
           </q-tab-panels>
@@ -160,15 +118,13 @@ export default {
       this.$axios.get('https://meejel-back.herokuapp.com/api/v1/instrument/', { headers: { Authorization: 'Bearer ' + tkn } })
         .then(res => {
           this.items = res.data
-          console.log(res.data)
         })
         .catch(err => {
           console.log(err)
         })
     },
     clean () {
-      this.items.forEach(element => {
-        console.log(element)
+      this.items.forEach(item => {
       })
     }
   }

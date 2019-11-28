@@ -812,8 +812,7 @@ export default {
       let id = this.makeOptions()[this.model]
       this.$axios.post('https://meejel-back.herokuapp.com/api/v1/instrument/' + id + '/evidence/',
         this.newEvaluation, { headers: { Authorization: 'Bearer ' + this.token } })
-      console.log(this.newEvaluation)
-      console.log(this.token)
+      this.dialogGrade = false
     }
   }
 }

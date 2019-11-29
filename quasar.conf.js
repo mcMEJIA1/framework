@@ -111,7 +111,7 @@ module.exports = function (ctx) {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /,
+          exclude: /.*/,
           options: {
             formatter: require('eslint').CLIEngine.getFormatter('stylish')
           }

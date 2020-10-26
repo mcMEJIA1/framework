@@ -27,7 +27,7 @@
                 outlined
                 type="password"
                 v-model="password"
-                label="Contraseña"
+                label="Contrasenaa"
                 lazy-rules
                 :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
                 ></q-input>

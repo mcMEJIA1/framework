@@ -4,7 +4,7 @@
   "description": "Quasar Vue app, for the front of Meejel, framework gamification",
   "productName": "Meejel",
   "cordovaId": "org.cordova.quasar.app",
-  "author": "Mateo Arboleda <marteomasoyyo@gmail.com>",
+  "author": "mcMEJIA <mejiasebasrian1499@gmail.com>",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue src",

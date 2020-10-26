@@ -10,7 +10,7 @@
             :filter="filter"
             binary-state-sort
             :rows-per-page-options="[50,100,200]"
-            rows-per-page-label="Items por página"
+            rows-per-page-label="Items por pagina"
           >
             <template v-slot:top-right>
               <q-input outlined v-model="filter" placeholder="Buscar" >

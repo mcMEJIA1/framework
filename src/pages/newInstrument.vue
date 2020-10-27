@@ -157,30 +157,14 @@
 
       <q-step
         :name="6"
-        title="Añada las categorias de su instrumento"
+        title="Categoria"
         caption="*"
         icon="create_new_folder"
         :done="step > 6"
       >
-        <div v-for="(category,index) in categories" v-bind:key="index" class="row">
-          <div class="col-3"></div>
-          <div class="col-5">
-            <q-input
-              rounded
-              outlined
-              v-model="category.Cname"
-              label="Categoria*"
-              lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
-            />
-          </div>
-          <div class="col-lg-2">
-            <div class="block float-right">
-              <q-btn @click="removeCategory(index)" icon="delete" round />
-              <q-btn v-if="index + 1 === categories.length" @click="addCategory" round>
-                <v-icon class="text-h4">+</v-icon>
-              </q-btn>
-            </div>
+        <div class="q-pa-md" style="max-width: 300px">
+          <div class="q-gutter-md">
+            <q-select outlined v-model="Category" :options="categories" label="Opciones" />
           </div>
         </div>
         <q-stepper-navigation>
@@ -293,7 +277,7 @@
         :done="step > 11"
       >
         <div class="q-pa-md">
-          <q-input v-model.number="model" type="number" filled style="max-width: 200px" />
+          <q-input v-model.number="groups" type="number" filled style="max-width: 200px" />
         </div>
         <q-stepper-navigation>
           <q-btn @click="$refs.stepper.next()" color="primary" label="Continuar" />
@@ -332,7 +316,7 @@
         :done="step > 13"
       >
         <div class="q-pa-md">
-          <q-input v-model.number="model" type="number" filled style="max-width: 200px" />
+          <q-input v-model.number="time" type="number" filled style="max-width: 200px" />
         </div>
         <q-stepper-navigation>
           <q-btn @click="$refs.stepper.next()" color="primary" label="Continuar" />
@@ -393,7 +377,7 @@ export default {
       rols: [],
       steps: [],
       materials: [],
-      categories: [],
+      categories: ["Calidad de software", "Requisitos", "Comunicación", "Trabajo en equipo" ],
       concepts: [],
       options: ["Alto", "Medio", "Bajo"],
       leveloptions: null,
@@ -413,6 +397,11 @@ export default {
       Cname: "",
       Coname: "",
       token: "",
+      time: 0,
+      groups: 0,
+      criteriosel:"",
+      description:"",
+      Category: "",
       data: {}
     };
   },
@@ -431,9 +420,6 @@ export default {
     },
     materials() {
       this.blockRemoval = this.materials.length <= 1;
-    },
-    categories() {
-      this.blockRemoval = this.categories.length <= 1;
     },
     concepts() {
       this.blockRemoval = this.concepts.length <= 1;
@@ -459,17 +445,6 @@ export default {
     },
     removeObj(objId) {
       if (!this.blockRemoval) this.objectives.splice(objId, 1);
-    },
-
-    addCategory() {
-      let checkEmpty = this.categories.filter(cat => cat.Cname === null);
-      if (checkEmpty.length >= 1 && this.categories.length > 0) return;
-      this.categories.push({
-        Cname: null
-      });
-    },
-    removeCategory(catId) {
-      if (!this.blockRemoval) this.categories.splice(catId);
     },
     addConcepts() {
       let checkEmpty = this.concepts.filter(con => con.Coname === null);
@@ -514,7 +489,7 @@ export default {
       if (!this.blockRemoval) this.materials.splice(materialId);
     },
     reduce(step) {
-      return step--;
+      return --step;
     },
     validations(step) {
       if (step === 3) {
@@ -564,6 +539,11 @@ export default {
     },
     makeInstrument() {
       console.log(this.token);
+      let concepts_asc = "";
+       Object.values(this.concepts).forEach( cat => {
+         concepts_asc += "," + cat.Coname
+       })
+       console.log(concepts_asc)
       let newInstrument = {
         name: this.name,
         Reglas: Object.values(this.rules),
@@ -571,11 +551,19 @@ export default {
         Roles: Object.values(this.rols),
         Pasos: Object.values(this.steps),
         Materiales: Object.values(this.materials),
-        Categorias: Object.values(this.categories),
-        "Conceptos Asociados": Object.values(this.concepts)
-      };
-      console.log(newInstrument);
-      this.data = newInstrument;
+        category:this.Category,
+        associated_concepts: concepts_asc,
+        difficulty: this.leveloptions,
+        time: this.time,
+        winner_selection: this.criteriosel,
+        purpose_teaching: this.CbEnseñar,
+        purpose_reinforce: this.CbReforzar,
+        purpose_check: this.CbComprobar,
+        purpose_social: this.CbSocializar,
+        description: this.description,
+        groups: this.groups,
+        attachments : ""
+      }; this.data = newInstrument;
       this.$axios
         .post(
           "https://meejel-back.herokuapp.com/api/v1/instrument/",
@@ -589,6 +577,7 @@ export default {
         .catch(err => {
           console.log(err);
         });
+      console.log(newInstrument);
       // let response = functions('post', newInstrument)
     },
     setInitState() {
@@ -606,7 +595,6 @@ export default {
       this.addrule();
       this.addObj();
       this.addRol();
-      this.addCategory();
       this.addConcepts();
     }
   },
@@ -616,7 +604,6 @@ export default {
     this.addRol();
     this.addstep();
     this.addMaterial();
-    this.addCategory();
     this.addConcepts();
   }
 };

@@ -71,6 +71,7 @@ export default {
         .then(res => {
           this.token = res.data.token
           LocalStorage.set('token', this.token)
+          LocalStorage.set('username', this.username)
           this.$router.push('/menu')
         })
         .catch(err => {

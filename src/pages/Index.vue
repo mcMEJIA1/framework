@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <q-space></q-space>
-    <div row justify-center wrap xs12 max-width="0%">
+    <div row justify-center wrap xs12 max-width="0%" >
           <q-table
             title="Instrummentos"
             :columns="columns"
@@ -11,6 +11,7 @@
             binary-state-sort
             :rows-per-page-options="[50,100,200]"
             rows-per-page-label="Items por pagina"
+            style="max-width: 90%; margin-left: 5%; margin-top: 5%"
           >
             <template v-slot:top-right>
               <q-input outlined v-model="filter" placeholder="Buscar" >
@@ -21,9 +22,11 @@
             </template>
             <q-tr slot="body" slot-scope="props" :props="props">
               <q-td>{{props.row.name}}</q-td>
+              <q-td>{{props.row.description}}</q-td>
+              <q-td>{{props.row.owner}}</q-td>
               <q-td>
-                <q-btn outlined @click="alert = true, obtener(props.row)">
-                  Consultar
+                <q-btn outlined @click="alert = true, obtener(props.row)" outline style="color: primary;" label="Consultar"></q-btn>
+                <q-btn outlined @click="alert = true, obtener(props.row)" outline style="margin-left: 3%; color: goldenrod;" label="Editar">
                 </q-btn>
               </q-td>
             </q-tr>
@@ -46,7 +49,13 @@
           </q-btn>
         </q-bar>
         <q-card-section>
-          <div v-if="dataObj != null"><div class="text-h6" style="text-align: center">{{dataObj['name']}}</div></div>
+          <div v-if="dataObj != null">
+            <div class="text-h6" style="text-align: center">{{dataObj['name']}}
+              <div>
+                {{dataObj['description']}}
+              </div>
+            </div>
+          </div>
         </q-card-section>
         <q-card-section>
           <q-tabs v-model="tab">
@@ -96,6 +105,8 @@ export default {
       filter: '',
       columns: [
         { name: 'name', label: 'Nombre', field: row => row.name, align: 'left' },
+        {name: 'description', label: 'Descripción', field: row => row.description, align: 'left'},
+        {name: 'owner', label: 'Pripietario', field: row => roe.owner, align: 'left'},
         { label: 'Acciones', align: 'left' }
       ],
       tab: 'one',
@@ -121,10 +132,12 @@ export default {
         })
         .catch(err => {
           console.log(err)
+          this.$router.push('/')
         })
     },
     clean () {
       this.items.forEach(item => {
+        console.log(item)
       })
     }
   }

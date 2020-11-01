@@ -26,7 +26,7 @@
               <q-td>{{props.row.owner}}</q-td>
               <q-td>
                 <q-btn outlined @click="alert = true, obtener(props.row)" outline style="color: primary;" label="Consultar"></q-btn>
-                <q-btn outlined @click="alert = true, obtener(props.row)" outline style="margin-left: 3%; color: goldenrod;" label="Editar">
+                <q-btn outlined @click="edit(props.row.id)" outline style="margin-left: 3%; color: goldenrod;" label="Editar">
                 </q-btn>
               </q-td>
             </q-tr>
@@ -51,9 +51,9 @@
         <q-card-section>
           <div v-if="dataObj != null">
             <div class="text-h6" style="text-align: center">{{dataObj['name']}}
-              <div>
-                {{dataObj['description']}}
-              </div>
+            </div>
+            <div>
+              {{dataObj['description']}}
             </div>
           </div>
         </q-card-section>
@@ -137,8 +137,16 @@ export default {
     },
     clean () {
       this.items.forEach(item => {
-        console.log(item)
+        console.log("")
       })
+    },
+    edit(item) {
+      this.$router.push({
+        name: "editInstrument",
+        params:{
+          id: item,
+        }
+      });
     }
   }
 }

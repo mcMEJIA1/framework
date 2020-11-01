@@ -6,7 +6,8 @@ const routes = [
       { path: '/instruments', component: () => import('pages/Index.vue') },
       { path: '/newInstrument', component: () => import('pages/newInstrument.vue') },
       { path: '/newEvidence', component: () => import('pages/newEvidence.vue') },
-      { path: '/evaluations', component: () => import('pages/evaluations.vue') }
+      { path: '/evaluations', component: () => import('pages/evaluations.vue') },
+      { path: '/editInstrument/:id', component: () => import('pages/editInstrument.vue'), name: "editInstrument" }
     ]
   },
   {

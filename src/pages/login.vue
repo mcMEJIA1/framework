@@ -27,7 +27,7 @@
                 outlined
                 type="password"
                 v-model="password"
-                label="Contrasenaa"
+                label="Contraseña"
                 lazy-rules
                 :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
                 ></q-input>
@@ -54,6 +54,10 @@
 <script>
 import { LocalStorage } from 'quasar'
 export default {
+  beforeMount() {
+    LocalStorage.set('token', '')
+    LocalStorage.set('username', '')
+  },
   data () {
     return {
       token: '',
@@ -72,7 +76,7 @@ export default {
           this.token = res.data.token
           LocalStorage.set('token', this.token)
           LocalStorage.set('username', this.username)
-          this.$router.push('/menu')
+          this.$router.push('/instruments')
         })
         .catch(err => {
           console.log(err)

@@ -81,7 +81,9 @@ module.exports = function (ctx) {
         'QTab',
         'QForm',
         'QCircularProgress',
-        'QSpace'
+        'QSpace',
+        'QInnerLoading',
+        'QSpinnerGears'
       ],
 
       directives: [

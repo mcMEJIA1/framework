@@ -330,6 +330,7 @@
         title="Añada los materiales de su instrumento"
         caption="*"
         icon="create_new_folder"
+        :done="step > 14"
       >
         <div v-for="(material,index) in materials" v-bind:key="index" class="row">
           <div class="col-3"></div>
@@ -359,10 +360,23 @@
       </q-step>
       <q-step
         :name="15"
-        title="Privacidad del instrumento"
+        title="Adjuntos"
         caption="*"
         icon="create_new_folder"
         :done="step > 15"
+      >
+      <q-input v-model="fileSelected" @change="onFileSelected" type="file"/>
+        <q-stepper-navigation>
+          <q-btn @click="$refs.stepper.next()" color="primary" label="Continuar" />
+          <q-btn @click="$refs.stepper.previous()" flat color="primary" label="Atras" />
+        </q-stepper-navigation>
+      </q-step>
+      <q-step
+        :name="16"
+        title="Privacidad del instrumento"
+        caption="*"
+        icon="create_new_folder"
+        :done="step > 16"
       >
         <div class="q-pa-md">
           <div class="q-gutter-sm">
@@ -416,6 +430,7 @@ export default {
         CbSocializar: false,
         blockRemoval: true,
         Public: false,
+        fileSelected: '',
         text: "",
         accept: false,
         Rname: "",
@@ -517,6 +532,9 @@ export default {
     },
     removeMaterial(materialId) {
       if (!this.blockRemoval) this.materials.splice(materialId);
+    },
+    onFileSelected(e){
+      this.fileSelected = e.target.files[0].name
     },
     validations(step) {
       if (step === 3) {

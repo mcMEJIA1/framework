@@ -430,7 +430,7 @@ export default {
         CbSocializar: false,
         blockRemoval: true,
         Public: false,
-        fileSelected: '',
+        fileSelected: "",
         text: "",
         accept: false,
         Rname: "",
@@ -606,9 +606,10 @@ export default {
         purpose_social: this.CbSocializar,
         description: this.description,
         groups: this.groups,
-        attachments : "",
+        attachments : this.fileSelected,
         public: this.Public
-      }; this.data = newInstrument;
+      }; 
+      this.data = newInstrument;
       if (this.dialogEdit){
         this.$axios
           .put(
@@ -691,6 +692,7 @@ export default {
           this.criteriosel = this.eInstrument.winner_selection
           this.time = this.eInstrument.time
           this.eInstrument.Materiales.forEach(mat => {this.materials.push({Maname: mat.Maname})})
+          this.fileSelected = this.eInstrument.attachments
           this.Public =  this.eInstrument.public
           setTimeout(() => {
             this.visible = false

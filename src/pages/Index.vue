@@ -105,8 +105,8 @@ export default {
       filter: '',
       columns: [
         { name: 'name', label: 'Nombre', field: row => row.name, align: 'left' },
-        {name: 'description', label: 'Descripción', field: row => row.description, align: 'left'},
-        {name: 'owner', label: 'Pripietario', field: row => roe.owner, align: 'left'},
+        { name: 'description', label: 'Descripción', field: row => row.description, align: 'left' },
+        { name: 'owner', label: 'Pripietario', field: row => row.owner, align: 'left' },
         { label: 'Acciones', align: 'left' }
       ],
       tab: 'one',
@@ -137,16 +137,16 @@ export default {
     },
     clean () {
       this.items.forEach(item => {
-        console.log("")
+        console.log('')
       })
     },
-    edit(item) {
+    edit (item) {
       this.$router.push({
-        name: "editInstrument",
-        params:{
-          id: item,
+        name: 'editInstrument',
+        params: {
+          id: item
         }
-      });
+      })
     }
   }
 }

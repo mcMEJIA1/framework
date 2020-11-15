@@ -54,7 +54,7 @@
 <script>
 import { LocalStorage } from 'quasar'
 export default {
-  beforeMount() {
+  beforeMount () {
     LocalStorage.set('token', '')
     LocalStorage.set('username', '')
   },

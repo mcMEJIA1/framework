@@ -4,10 +4,10 @@
 <style>
 </style>
 <script>
-import instrument from "../components/instrument";
+import instrument from '../components/instrument'
 export default {
   components: {
     instrument
   }
-};
+}
 </script>

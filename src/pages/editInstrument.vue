@@ -4,12 +4,12 @@
 <style>
 </style>
 <script>
-import instrument from "../components/instrument";
-import { LocalStorage } from 'quasar';
+import instrument from '../components/instrument'
+import { LocalStorage } from 'quasar'
 
 export default {
-  beforeMount()  {
-    this.start();
+  beforeMount () {
+    this.start()
   },
   components: {
     instrument
@@ -23,8 +23,8 @@ export default {
   methods: {
     start () {
       this.token = LocalStorage.getItem('token')
-      this.axiosInstruments();
+      this.axiosInstruments()
     }
   }
-};
+}
 </script>

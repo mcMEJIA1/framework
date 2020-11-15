@@ -7,7 +7,7 @@ const routes = [
       { path: '/newInstrument', component: () => import('pages/newInstrument.vue') },
       { path: '/newEvidence', component: () => import('pages/newEvidence.vue') },
       { path: '/evaluations', component: () => import('pages/evaluations.vue') },
-      { path: '/editInstrument/:id', component: () => import('pages/editInstrument.vue'), name: "editInstrument" }
+      { path: '/editInstrument/:id', component: () => import('pages/editInstrument.vue'), name: 'editInstrument' }
     ]
   },
   {

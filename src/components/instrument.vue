@@ -148,10 +148,6 @@
           <div class="q-pa-md">
             <q-input v-model.number="groups" type="number" filled style="max-width: 200px" />
           </div>
-          <q-stepper-navigation>
-            <q-btn @click="$refs.stepper.next()" color="primary" label="Continuar" />
-            <q-btn @click="$refs.stepper.previous()" flat color="primary" label="Atras" />
-          </q-stepper-navigation>
         </q-step>
 
         <q-step

@@ -3,7 +3,7 @@
     <q-space></q-space>
     <div row justify-center wrap xs12 max-width="0%" >
           <q-table
-            title="Instrummentos"
+            title="Lista de Instrumentos"
             :columns="columns"
             :data="items"
             row-key="name"
@@ -106,7 +106,7 @@ export default {
       columns: [
         { name: 'name', label: 'Nombre', field: row => row.name, align: 'left' },
         { name: 'description', label: 'Descripción', field: row => row.description, align: 'left' },
-        { name: 'owner', label: 'Pripietario', field: row => row.owner, align: 'left' },
+        { name: 'owner', label: 'Propietario', field: row => row.owner, align: 'left' },
         { label: 'Acciones', align: 'left' }
       ],
       tab: 'one',

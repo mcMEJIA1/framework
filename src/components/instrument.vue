@@ -22,7 +22,7 @@
               </q-item-section>
 
               <q-item-section>
-                Datos basicos
+                1. Datos básicos
               </q-item-section>
             </q-item>
 
@@ -32,7 +32,7 @@
               </q-item-section>
 
               <q-item-section>
-                Elementos
+                2. Elementos
               </q-item-section>
             </q-item>
 
@@ -42,7 +42,7 @@
               </q-item-section>
 
               <q-item-section>
-                Adjuntos
+                3. Material de apoyo
               </q-item-section>
             </q-item>
           </q-list>
@@ -408,7 +408,7 @@
       >
         <q-step
             :name="1"
-            title="Adjuntos"
+            title="Material de apoyo"
             caption="*"
             icon="create_new_folder"
             :done="step > 1"
@@ -453,7 +453,7 @@ export default {
       materials: [],
       categories: [ 'Calidad de software', 'Requisitos', 'Comunicación', 'Trabajo en equipo' ],
       concepts: [],
-      options: ['Alto', 'Medio', 'Bajo'],
+      options: ['Alta', 'Media', 'Baja'],
       leveloptions: null,
       CbEnseñar: false,
       CbReforzar: false,

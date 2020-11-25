@@ -2,9 +2,7 @@
 <div>
     <div class="col" style="position: absolute; top: 15%; left: 40px;">
       <q-drawer
-        v-model="drawer"
         show-if-above
-        :mini="miniState"
         @mouseover="miniState = false"
         @mouseout="miniState = false"
         mini-to-overlay
@@ -101,7 +99,7 @@
           icon="create_new_folder"
           :done="step > 3"
         >
-          <div class="q-pa-md" style="max-width: 300px">
+          <div class="q-pa-md" style="max-width: 300px, margin-left: auto; margin-right: auto;">
             <div class="q-gutter-md">
               <q-select outlined v-model="Category" :options="categories" label="Opciones" />
             </div>
@@ -131,7 +129,7 @@
           icon="create_new_folder"
           :done="step > 5"
         >
-          <div class="q-pa-md" style="max-width: 300px">
+          <div class="q-pa-md" style="max-width: 300px, margin-left: auto; margin-right: auto;">
             <div class="q-gutter-md">
               <q-select outlined v-model="leveloptions" :options="options" label="Opciones" />
             </div>
@@ -145,13 +143,11 @@
           icon="create_new_folder"
           :done="step > 6"
         >
-          <div class="q-pa-md">
-            <q-input v-model.number="groups" type="number" filled style="max-width: 200px" />
+          <div class="q-pa-md" style="max-width: 300px, margin-left: auto; margin-right: auto;">
+            <div class="q-gutter-md">
+              <q-input v-model.number="groups" type="number" filled />
+            </div>
           </div>
-          <q-stepper-navigation>
-            <q-btn @click="$refs.stepper.next()" color="primary" label="Continuar" />
-            <q-btn @click="$refs.stepper.previous()" flat color="primary" label="Atras" />
-          </q-stepper-navigation>
         </q-step>
 
         <q-step
@@ -180,8 +176,10 @@
           icon="create_new_folder"
           :done="step > 8"
         >
-          <div class="q-pa-md">
-            <q-input v-model.number="time" type="number" filled style="max-width: 200px" />
+          <div class="q-pa-md" style="max-width: 300px, margin-left: auto; margin-right: auto;">
+            <div class="q-gutter-md">
+              <q-input v-model.number="time" type="number" filled />
+            </div>
           </div>
         </q-step>
 
@@ -192,8 +190,8 @@
           icon="create_new_folder"
           :done="step > 9"
         >
-          <div class="q-pa-md">
-            <div class="q-gutter-sm">
+          <div class="q-pa-md" style="margin-left: 30%; margin-right: auto;">
+            <div class="q-gutter-md">
               <q-toggle v-model="Public" label="Publico" />
             </div>
           </div>
@@ -694,6 +692,11 @@ export default {
         .then(res => {
           this.eInstrument = res.data
           this.name = this.eInstrument.name
+          if (this.eInstrument.Objetivos.length === 0) { this.objectives.push({ Oname: '' }) }
+          if (this.eInstrument.Reglas.length === 0) { this.rules.push({ Rname: '' }) }
+          if (this.eInstrument.Roles.length === 0) { this.rols.push({ Roname: '' }) }
+          if (this.eInstrument.Pasos.length === 0) { this.steps.push({ Sname: '' }) }
+          if (this.eInstrument.Materiales.length === 0) { this.materials.push({ Maname: '' }) }
           this.eInstrument.Objetivos.forEach(obj => { this.objectives.push({ Oname: obj.Oname }) })
           this.eInstrument.Reglas.forEach(rule => { this.rules.push({ Rname: rule.Rname }) })
           this.eInstrument.Roles.forEach(rol => { this.rols.push({ Roname: rol.Roname }) })
@@ -706,6 +709,7 @@ export default {
           this.CbSocializar = this.eInstrument.purpose_social
           let oldConcepts = this.eInstrument.associated_concepts.split(',')
           oldConcepts.shift()
+          if (oldConcepts.length === 0) { this.concepts.push({ Coname: '' }) }
           oldConcepts.forEach(conc => { this.concepts.push({ Coname: conc }) })
           this.leveloptions = this.eInstrument.difficulty
           this.groups = this.eInstrument.groups

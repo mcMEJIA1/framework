@@ -1,5 +1,5 @@
 <template>
-  <instrument :dialogEdit="true"/>
+  <instrument :eInstrument="{}" :dialogEdit="true"/>
 </template>
 <style>
 </style>
@@ -23,7 +23,6 @@ export default {
   methods: {
     start () {
       this.token = LocalStorage.getItem('token')
-      this.axiosInstruments()
     }
   }
 }

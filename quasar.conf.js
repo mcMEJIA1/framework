@@ -83,7 +83,8 @@ module.exports = function (ctx) {
         'QCircularProgress',
         'QSpace',
         'QInnerLoading',
-        'QSpinnerGears'
+        'QSpinnerGears',
+        'QScrollArea'
       ],
 
       directives: [

@@ -94,7 +94,7 @@
         </q-step>
         <q-step
           :name="3"
-          title="Categoria"
+          title="Categoría"
           caption="*"
           icon="create_new_folder"
           :done="step > 3"
@@ -192,7 +192,7 @@
         >
           <div class="q-pa-md" style="margin-left: 30%; margin-right: auto;">
             <div class="q-gutter-md">
-              <q-toggle v-model="Public" label="Publico" />
+              <q-toggle v-model="Public" label="Público" />
             </div>
           </div>
         </q-step>

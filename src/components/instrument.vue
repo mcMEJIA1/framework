@@ -72,6 +72,7 @@
             label="Nombre del instrumento*"
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
+            aria-required="true"
           />
         </q-step>
         <q-step
@@ -90,6 +91,7 @@
             label="Descripcion del instrumento*"
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
+            aria-required="true"
           />
         </q-step>
         <q-step
@@ -101,7 +103,7 @@
         >
           <div class="q-pa-md" style="max-width: 300px, margin-left: auto; margin-right: auto;">
             <div class="q-gutter-md">
-              <q-select outlined v-model="Category" :options="categories" label="Opciones" />
+              <q-select outlined v-model="Category" :options="categories" label="Opciones" aria-required="true" />
             </div>
           </div>
         </q-step>
@@ -131,7 +133,8 @@
         >
           <div class="q-pa-md" style="max-width: 300px, margin-left: auto; margin-right: auto;">
             <div class="q-gutter-md">
-              <q-select outlined v-model="leveloptions" :options="options" label="Opciones" />
+              <q-select outlined v-model="leveloptions" :options="options" label="Opciones"
+              aria-required="true"/>
             </div>
           </div>
         </q-step>
@@ -166,6 +169,7 @@
             label="Criterio de selección*"
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
+            aria-required="true"
           />
         </q-step>
 
@@ -178,7 +182,7 @@
         >
           <div class="q-pa-md" style="max-width: 300px, margin-left: auto; margin-right: auto;">
             <div class="q-gutter-md">
-              <q-input v-model.number="time" type="number" filled />
+              <q-input v-model.number="time" type="number" aria-required="true" filled/>
             </div>
           </div>
         </q-step>
@@ -192,7 +196,7 @@
         >
           <div class="q-pa-md" style="margin-left: 30%; margin-right: auto;">
             <div class="q-gutter-md">
-              <q-toggle v-model="Public" label="Público" />
+              <q-toggle v-model="Public" label="Público" aria-required="true"/>
             </div>
           </div>
         </q-step>
@@ -232,6 +236,7 @@
                   label="Objetivo*"
                   lazy-rules
                   :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
+                  aria-required="true"
                 />
               </div>
               <div class="col-lg-2">
@@ -261,6 +266,7 @@
                   label="Regla*"
                   lazy-rules
                   :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
+                  aria-required="true"
                 />
               </div>
               <div class="col-lg-2">
@@ -377,6 +383,7 @@
                 label="Material*"
                 lazy-rules
                 :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
+                aria-required="true"
               />
             </div>
             <div class="col-lg-2">
@@ -592,17 +599,15 @@ export default {
         Notify.create('Debe poner un criterio de selección para un ganador')
         return 'error'
       } else if ( step === 8 && this.time === 0){
-        Notify.create('Debe poner un tiempo de duración válido')
+        Notify.create('Debe poner un tiempo de duración')
         return 'error'
-      } else if (step === 4 && (!(this.purpose_teaching.selected) || !(this.purpose_social.selected) || !(this.purpose_check) || !(this.purpose_reinforce.selected)))
-      {
+      } else if (step === 4 && (!(this.purpose_teaching.selected) || !(this.purpose_social.selected) || !(this.purpose_check) || !(this.purpose_reinforce.selected))){
         Notify.create('Debe tener como minimo un propósito seleccionado')
         return 'error'
-      } else if (step === 5 && this.leveloptions === '')
-      {
+      } else if (step === 5 && this.leveloptions === ''){
         Notify.create('Debe elegir un nivel de dificultad')
         return 'error'
-      } else if (step2 === 1) {
+      } else if (step2 === 1){
         let checkEmpty = this.objectives.filter(obj => obj.Oname === null)
         if (checkEmpty.length >= 1 && this.objectives.length > 0) {
           Notify.create('Uno o todos los objetivos están vacíos')

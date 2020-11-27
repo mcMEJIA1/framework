@@ -576,10 +576,10 @@ export default {
       this.fileSelected = e.target.files[0].name
     },
     validations (step) {
-      if (step === 3) {
+      if (step2 === 3) {
         let checkEmptyrules = this.rules.filter(rule => rule.Rname === null)
         if (checkEmptyrules.length >= 1 && this.rules.length > 0) {
-          Notify.create('Una o todas las reglas estan vacias')
+          Notify.create('Una o todas las reglas estan vacías')
           return 'error'
         }
       } else if (step === 1 && this.name === '') {
@@ -588,22 +588,30 @@ export default {
       } else if (step === 2 && this.description === ''){
         Notify.create('Debe poner una descripción para continuar')
         return 'error'  
-      }else if (step === 2) {
+      } else if (step === 7 && this.criteriosel === ''){
+        Notify.create('Debe poner un criterio de selección para un ganador')
+        return 'error'
+      } else if ( step === 8 && this.time === 0){
+        Notify.create('Debe poner un tiempo de duración válido')
+        return 'error'
+      } else if (step === 4 && (!(this.purpose_teaching.selected) || !(this.purpose_social.selected) || !(this.purpose_check) || !(this.purpose_reinforce.selected)))
+      {
+        Notify.create('Debe tener como minimo un propósito seleccionado')
+        return 'error'
+      } else if (step === 5 && this.leveloptions === '')
+      {
+        Notify.create('Debe elegir un nivel de dificultad')
+        return 'error'
+      } else if (step2 === 1) {
         let checkEmpty = this.objectives.filter(obj => obj.Oname === null)
         if (checkEmpty.length >= 1 && this.objectives.length > 0) {
-          Notify.create('Uno o todos los objetivos estan vacios')
+          Notify.create('Uno o todos los objetivos están vacíos')
           return 'error'
         }
-      } else if (step === 4) {
-        let checkEmpty = this.rols.filter(rol => rol.Roname === null)
-        if (checkEmpty.length >= 1 && this.rols.length > 0) {
-          Notify.create('Uno o todos los roles estan vacios')
-          return 'error'
-        }
-      } else if (step === 5) {
-        let checkEmpty = this.steps.filter(step => step.Sname === null)
-        if (checkEmpty.length >= 1 && this.steps.length > 0) {
-          Notify.create('Una o todos los pasos estan vacios')
+      } else if (step2 === 7) {
+        let checkEmpty = this.materials.filter(material => material.Maname === null)
+        if (checkEmpty.length >= 1 && this.materials.length > 0) {
+          Notify.create('Uno o todos los materiales estan vacíos')
           return 'error'
         }
       }

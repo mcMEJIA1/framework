@@ -3,6 +3,7 @@
 const webpack = require('webpack')
 
 module.exports = function (ctx) {
+  console.log(ctx)
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -183,7 +184,7 @@ module.exports = function (ctx) {
     },
 
     cordova: {
-      // id: 'org.cordova.quasar.app',
+      id: 'org.cordova.quasar.app',
       // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
     },
 

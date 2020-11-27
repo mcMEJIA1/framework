@@ -138,7 +138,7 @@
 
         <q-step
           :name="6"
-          title="Número de grupos"
+          title="Cantidad de participantes por grupo sugerido"
           caption="*"
           icon="create_new_folder"
           :done="step > 6"
@@ -585,7 +585,10 @@ export default {
       } else if (step === 1 && this.name === '') {
         Notify.create('Debe poner un nombre para continuar')
         return 'error'
-      } else if (step === 2) {
+      } else if (step === 2 && this.description === ''){
+        Notify.create('Debe poner una descripción para continuar')
+        return 'error'  
+      }else if (step === 2) {
         let checkEmpty = this.objectives.filter(obj => obj.Oname === null)
         if (checkEmpty.length >= 1 && this.objectives.length > 0) {
           Notify.create('Uno o todos los objetivos estan vacios')

@@ -204,7 +204,7 @@
         class="q-gutter-md"
         vertical
         header-nav
-        v-model="step"
+        v-model="step2"
         ref="stepper"
         alternative-labels
         color="primary"
@@ -220,7 +220,7 @@
             title="Añada los objetivos de su instrumento"
             caption="*"
             icon="create_new_folder"
-            :done="step > 1"
+            :done="step2 > 1"
           >
             <div v-for="(objective, index) in objectives" v-bind:key="index" class="row">
               <div class="col-3"></div>
@@ -249,7 +249,7 @@
             title="Añada las reglas de su instrumento"
             caption="*"
             icon="create_new_folder"
-            :done="step > 3"
+            :done="step2 > 3"
           >
             <div v-for="(rule, index) in rules " v-bind:key="index" class="row">
               <div class="col-3"></div>
@@ -278,7 +278,7 @@
           title="Añada los roles de su instrumento"
           caption="*"
           icon="create_new_folder"
-          :done="step > 4"
+          :done="step2 > 4"
         >
           <div v-for="(rol, index) in rols" v-bind:key="index" class="row">
             <div class="col-3"></div>
@@ -307,7 +307,7 @@
           title="Añada los pasos de su instrumento"
           caption="*"
           icon="create_new_folder"
-          :done="step > 5"
+          :done="step2 > 5"
         >
           <div v-for="(step,index) in steps" v-bind:key="index" class="row">
             <div class="col-3"></div>
@@ -336,7 +336,7 @@
           title="Añada los conceptos asociados a su instrumento"
           caption="*"
           icon="create_new_folder"
-          :done="step > 6"
+          :done="step2 > 6"
         >
           <div v-for="(concept,index) in concepts" v-bind:key="index" class="row">
             <div class="col-3"></div>
@@ -365,7 +365,7 @@
           title="Añada los materiales de su instrumento"
           caption="*"
           icon="create_new_folder"
-          :done="step > 7"
+          :done="step2 > 7"
         >
           <div v-for="(material,index) in materials" v-bind:key="index" class="row">
             <div class="col-3"></div>
@@ -397,7 +397,7 @@
         class="q-gutter-md"
         vertical
         header-nav
-        v-model="step"
+        v-model="step3"
         ref="stepper"
         alternative-labels
         color="primary"
@@ -409,12 +409,12 @@
         width: 50%;"
       >
         <q-step
-            :name="1"
-            title="Material de apoyo"
-            caption="*"
-            icon="create_new_folder"
-            :done="step > 1"
-          >
+          :name="1"
+          title="Material de apoyo"
+          caption="*"
+          icon="create_new_folder"
+          :done="step3 > 1"
+        >
           <q-input v-model="fileSelected" @change="onFileSelected" type="file"/>
           </q-step>
           <q-stepper-navigation>
@@ -435,6 +435,7 @@ export default {
   beforeMount () {
     this.token = LocalStorage.getItem('token')
     this.edit()
+    this.axiosCategories()
   },
   props: {
     eInstrument: Object,
@@ -448,12 +449,14 @@ export default {
       visible: true,
       showData: false,
       step: 1,
+      step2: 1,
+      step3: 1,
       rules: [],
       objectives: [],
       rols: [],
       steps: [],
       materials: [],
-      categories: [ 'Calidad de software', 'Requisitos', 'Comunicación', 'Trabajo en equipo' ],
+      categories: [],
       concepts: [],
       options: ['Alta', 'Media', 'Baja'],
       leveloptions: null,
@@ -722,6 +725,23 @@ export default {
             this.visible = false
             this.showData = true
           }, 1000)
+        })
+        .catch(err => {
+          console.log(err)
+          this.$router.push('/')
+        })
+    },
+    axiosCategories () {
+      let self = this
+      let tkn = self.token
+      self.$axios.get('https://meejel-back.herokuapp.com/api/v1/category/', { headers: { Authorization: 'Bearer ' + tkn } })
+        .then(res => {
+          let catJson = res.data
+          if (catJson.length !== 0) {
+            catJson.forEach(cat => {
+              self.categories.push(cat['name'])
+            })
+          }
         })
         .catch(err => {
           console.log(err)

@@ -21,7 +21,7 @@
               <q-item-section>1. Datos básicos</q-item-section>
             </q-item>
 
-            <q-item @click="showMenus('elements')" :active="showElements" clickable v-ripple>
+            <q-item @click="validations()" :active="showElements" clickable v-ripple>
               <q-item-section avatar>
                 <q-icon name="build" />
               </q-item-section>
@@ -64,6 +64,19 @@
           icon="settings"
           :done="step > 1"
         >
+        <div v-if="dialogEdit">
+          <q-input
+            rounded
+            outlined
+            v-model="name"
+            label="Nombre del instrumento*"
+            lazy-rules
+            :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
+            aria-required="true"
+            readonly
+          />
+        </div>
+        <div v-else>
           <q-input
             rounded
             outlined
@@ -73,6 +86,7 @@
             :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
             aria-required="true"
           />
+        </div>
         </q-step>
         <q-step
           :name="2"
@@ -454,7 +468,11 @@
           icon="create_new_folder"
           :done="step3 > 1"
         >
-          <q-input v-model="fileSelected" @change="onFileSelected" type="file" />
+          <q-file outlined v-model="fileSelected">
+            <template v-slot:prepend>
+              <q-icon name="attach_file" />
+            </template>
+          </q-file>
         </q-step>
         <q-stepper-navigation>
           <q-btn @click="makeInstrument()" color="primary" label="Finalizar" />
@@ -498,14 +516,14 @@ export default {
       categories: [],
       concepts: [],
       options: ["Alta", "Media", "Baja"],
-      leveloptions: null,
+      leveloptions: '',
       CbEnseñar: false,
       CbReforzar: false,
       CbComprobar: false,
       CbSocializar: false,
       blockRemoval: true,
       Public: false,
-      fileSelected: "",
+      fileSelected: null,
       text: "",
       accept: false,
       Rname: "",
@@ -616,37 +634,35 @@ export default {
     onFileSelected(e) {
       this.fileSelected = e.target.files[0].name;
     },
-    validations(step) {
+    validations() {
+      if (this.name === "") {
+        Notify.create("Debe poner un nombre para continuar");
+      } else if (this.description === "") {
+        Notify.create("Debe poner una descripción para continuar");
+      } else if (this.criteriosel === "") {
+        Notify.create("Debe poner un criterio de selección para un ganador");
+      } else if (this.time === 0) {
+        Notify.create("Debe poner un tiempo de duración");
+      } else if (
+          !this.CbEnseñar &&
+          !this.CbReforzar &&
+          !this.CbComprobar &&
+          !this.CbSocializar
+      ) {
+        Notify.create("Debe tener como minimo un propósito seleccionado");
+      } else if (this.leveloptions === "") {
+        Notify.create("Debe elegir un nivel de dificultad");
+      } else {
+        this.showMenus('elements')
+      }
+    },
+    elementValidations () {
       if (this.step2 === 3) {
         let checkEmptyrules = this.rules.filter(rule => rule.Rname === null);
         if (checkEmptyrules.length >= 1 && this.rules.length > 0) {
           Notify.create("Una o todas las reglas estan vacías");
           return "error";
         }
-      } else if (step === 1 && this.name === "") {
-        Notify.create("Debe poner un nombre para continuar");
-        return "error";
-      } else if (step === 2 && this.description === "") {
-        Notify.create("Debe poner una descripción para continuar");
-        return "error";
-      } else if (step === 7 && this.criteriosel === "") {
-        Notify.create("Debe poner un criterio de selección para un ganador");
-        return "error";
-      } else if (step === 8 && this.time === 0) {
-        Notify.create("Debe poner un tiempo de duración");
-        return "error";
-      } else if (
-        step === 4 &&
-        (!this.purpose_teaching.selected ||
-          !this.purpose_social.selected ||
-          !this.purpose_check ||
-          !this.purpose_reinforce.selected)
-      ) {
-        Notify.create("Debe tener como minimo un propósito seleccionado");
-        return "error";
-      } else if (step === 5 && this.leveloptions === "") {
-        Notify.create("Debe elegir un nivel de dificultad");
-        return "error";
       } else if (this.step2 === 1) {
         let checkEmpty = this.objectives.filter(obj => obj.Oname === null);
         if (checkEmpty.length >= 1 && this.objectives.length > 0) {
@@ -678,7 +694,7 @@ export default {
         Materiales: Object.values(this.materials),
         category: this.Category,
         associated_concepts: conceptsAsc,
-        difficulty: this.leveloptions,
+        difficulty: this.leveloptions.slice(0, -1) + 'o',
         time: this.time,
         winner_selection: this.criteriosel,
         purpose_teaching: this.CbEnseñar,
@@ -687,11 +703,12 @@ export default {
         purpose_social: this.CbSocializar,
         description: this.description,
         groups: this.groups,
-        attachments: this.fileSelected,
+        attachments: this.fileSelected.name,
         public: this.Public
       };
       this.data = newInstrument;
       if (this.dialogEdit) {
+        console.log(newInstrument);
         this.$axios
           .put(
             "https://meejel-back.herokuapp.com/api/v1/instrument/" +
@@ -708,6 +725,7 @@ export default {
             console.log(err);
           });
       } else {
+        console.log(newInstrument)
         this.$axios
           .post(
             "https://meejel-back.herokuapp.com/api/v1/instrument/",
@@ -801,7 +819,7 @@ export default {
           oldConcepts.forEach(conc => {
             this.concepts.push({ Coname: conc });
           });
-          this.leveloptions = this.eInstrument.difficulty;
+          this.leveloptions = this.eInstrument.difficulty.slice(0, -1) + 'a';
           this.groups = this.eInstrument.groups;
           this.criteriosel = this.eInstrument.winner_selection;
           this.time = this.eInstrument.time;
@@ -829,6 +847,7 @@ export default {
         })
         .then(res => {
           let catJson = res.data;
+          console.log(catJson);
           if (catJson.length !== 0) {
             catJson.forEach(cat => {
               self.categories.push(cat["name"]);
@@ -849,7 +868,8 @@ export default {
         )
         .then(res => {
           const data = res.data;
-          this.categories.push(res.data);
+          console.log(data)
+          this.categories.push(res.data.name);
           this.newCateg = "";
           axiosCategories();
         })

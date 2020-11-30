@@ -16,8 +16,6 @@ phases:
     commands:
       - echo Installing node dependencies...
       - npm i
-      - echo Installing yarn dependencies...
-      - yarn install
   build:
     commands:
       - echo Building 

@@ -84,7 +84,8 @@ module.exports = function (ctx) {
         'QSpace',
         'QInnerLoading',
         'QSpinnerGears',
-        'QScrollArea'
+        'QScrollArea',
+        'QDialog'
       ],
 
       directives: [

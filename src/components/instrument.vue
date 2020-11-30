@@ -88,7 +88,7 @@
             v-model="description"
             filled
             type="textarea"
-            label="Descripcion del instrumento*"
+            label="Descripción del instrumento*"
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
             aria-required="true"
@@ -101,11 +101,41 @@
           icon="create_new_folder"
           :done="step > 3"
         >
+
+
           <div class="q-pa-md" style="max-width: 300px, margin-left: auto; margin-right: auto;">
             <div class="q-gutter-md">
               <q-select outlined v-model="Category" :options="categories" label="Opciones" aria-required="true" />
             </div>
           </div>
+
+  <div class="q-pa-md q-gutter-sm">
+    <q-btn label="With QToolbar" color="primary" @click="toolbar = true" />
+
+    <q-dialog v-model="toolbar">
+      <q-card>
+        <q-toolbar>
+          <q-toolbar-title><span class="text-weight-bold">Seleccionar Categoría</span></q-toolbar-title>
+          <q-btn flat round dense icon="close" v-close-popup />
+        </q-toolbar>
+
+        <q-card-section>
+          text
+            <div class="q-pa-md" style="max-width: 300px, margin-left: auto; margin-right: auto;">
+            <div class="q-gutter-md">
+              <q-select outlined v-model="Category" :options="categories" label="Opciones" aria-required="true" />
+            </div>
+          </div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+  </div>
+
+
+
+
+
+
         </q-step>
         <q-step
           :name="4"
@@ -493,7 +523,8 @@ export default {
       data: {},
       showElements: false,
       showBasics: true,
-      showAds: false
+      showAds: false,
+      toolbar: false
     }
   },
   watch: {

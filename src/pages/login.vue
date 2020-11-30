@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col" style="max-height: 20%; text-align: center; margin-left: 18%; margin-top: 5%" >
           <div class="row" style="text-align: center; margin-left: 10%">
-            <img src="/statics/icons/Logo.jpg" style="width: 120px; height: 120px;">
+            <img src="/Logo.jpg" style="width: 120px; height: 120px;" alt="">
           </div>
           <div class="row">
             <h2 class="title2">MEEJEL</h2>
@@ -73,6 +73,7 @@ export default {
       }
       this.$axios.post('https://meejel-back.herokuapp.com/api/v1/api-token-auth/', login)
         .then(res => {
+          console.log('in')
           this.token = res.data.token
           LocalStorage.set('token', this.token)
           LocalStorage.set('username', this.username)

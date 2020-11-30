@@ -1,7 +1,8 @@
+
 const routes = [
   {
     path: '/menu',
-    component: () => import('layouts/MyLayout.vue'),
+    component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '/instruments', component: () => import('pages/Index.vue') },
       { path: '/newInstrument', component: () => import('pages/newInstrument.vue') },
@@ -13,15 +14,14 @@ const routes = [
   {
     path: '/',
     component: () => import('pages/login')
-  }
-]
+  },
 
-// Always leave this as last one
-if (process.env.MODE !== 'ssr') {
-  routes.push({
+  // Always leave this as last one,
+  // but you can also remove it
+  {
     path: '*',
     component: () => import('pages/Error404.vue')
-  })
-}
+  }
+]
 
 export default routes

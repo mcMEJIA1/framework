@@ -617,7 +617,7 @@ export default {
       this.fileSelected = e.target.files[0].name;
     },
     validations(step) {
-      if (step2 === 3) {
+      if (this.step2 === 3) {
         let checkEmptyrules = this.rules.filter(rule => rule.Rname === null);
         if (checkEmptyrules.length >= 1 && this.rules.length > 0) {
           Notify.create("Una o todas las reglas estan vacías");
@@ -647,13 +647,13 @@ export default {
       } else if (step === 5 && this.leveloptions === "") {
         Notify.create("Debe elegir un nivel de dificultad");
         return "error";
-      } else if (step2 === 1) {
+      } else if (this.step2 === 1) {
         let checkEmpty = this.objectives.filter(obj => obj.Oname === null);
         if (checkEmpty.length >= 1 && this.objectives.length > 0) {
           Notify.create("Uno o todos los objetivos están vacíos");
           return "error";
         }
-      } else if (step2 === 7) {
+      } else if (this.step2 === 7) {
         let checkEmpty = this.materials.filter(
           material => material.Maname === null
         );

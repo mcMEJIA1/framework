@@ -21,7 +21,7 @@
               <q-item-section>1. Datos básicos</q-item-section>
             </q-item>
 
-            <q-item @click="validations()" :active="showElements" clickable v-ripple>
+            <q-item @click="validations('elements')" :active="showElements" clickable v-ripple>
               <q-item-section avatar>
                 <q-icon name="build" />
               </q-item-section>
@@ -29,7 +29,7 @@
               <q-item-section>2. Elementos</q-item-section>
             </q-item>
 
-            <q-item @click="showMenus('ads')" :active="showAds" clickable v-ripple>
+            <q-item @click="elementValidations('ads')" :active="showAds" clickable v-ripple>
               <q-item-section avatar>
                 <q-icon name="drafts" />
               </q-item-section>
@@ -107,7 +107,7 @@
             aria-required="true"
           />
         </q-step>
-        <q-step :name="3" title="Categoría" caption="*" icon="create_new_folder" :done="step > 3">
+        <q-step :name="3" title="Categoría"  icon="create_new_folder" :done="step > 3">
           <div class="q-pa-md" style="max-width: 300px, margin-left: auto; margin-right: auto;">
             <div class="q-gutter-md">
               <q-select
@@ -151,7 +151,6 @@
         <q-step
           :name="4"
           title="Propósito del instrumento"
-          caption="*"
           icon="create_new_folder"
           :done="step > 4"
         >
@@ -188,7 +187,6 @@
         <q-step
           :name="6"
           title="Cantidad de participantes por grupo sugerido"
-          caption="*"
           icon="create_new_folder"
           :done="step > 6"
         >
@@ -236,7 +234,6 @@
         <q-step
           :name="9"
           title="Privacidad del instrumento"
-          caption="*"
           icon="create_new_folder"
           :done="step > 9"
         >
@@ -328,7 +325,6 @@
         <q-step
           :name="4"
           title="Añada los roles de su instrumento"
-          caption="*"
           icon="create_new_folder"
           :done="step2 > 4"
         >
@@ -357,7 +353,6 @@
         <q-step
           :name="5"
           title="Añada los pasos de su instrumento"
-          caption="*"
           icon="create_new_folder"
           :done="step2 > 5"
         >
@@ -386,7 +381,6 @@
         <q-step
           :name="6"
           title="Añada los conceptos asociados a su instrumento"
-          caption="*"
           icon="create_new_folder"
           :done="step2 > 6"
         >
@@ -464,15 +458,30 @@
         <q-step
           :name="1"
           title="Material de apoyo"
-          caption="*"
           icon="create_new_folder"
           :done="step3 > 1"
         >
+        <div class="q-gutter-md">
+          <q-toggle v-model="file" label="Documento" aria-required="true" />
+        </div>
+        <div v-if="file">
           <q-file outlined v-model="fileSelected">
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
           </q-file>
+        </div>
+        <div v-else>
+          <q-input
+            rounded
+            outlined
+            v-model="link"
+            label="Enlace adjunto"
+            lazy-rules
+            :rules="[ val => val && val.length > 0 || 'Debe escribir algo']"
+            aria-required="true"
+          />
+        </div>
         </q-step>
         <q-stepper-navigation>
           <q-btn @click="makeInstrument()" color="primary" label="Finalizar" />
@@ -503,6 +512,8 @@ export default {
   },
   data() {
     return {
+      link: '',
+      file: true,
       visible: true,
       showData: false,
       step: 1,
@@ -545,7 +556,8 @@ export default {
       showBasics: true,
       showAds: false,
       toolbar: false,
-      newCateg: ""
+      newCateg: "",
+      validate: false
     };
   },
   watch: {
@@ -620,9 +632,7 @@ export default {
       if (!this.blockRemoval) this.steps.splice(stepId);
     },
     addMaterial() {
-      let checkEmpty = this.materials.filter(
-        material => material.Maname === null
-      );
+      let checkEmpty = this.materials.filter(material => material.Maname === null);
       if (checkEmpty.length >= 1 && this.materials.length > 0) return;
       this.materials.push({
         Maname: null
@@ -634,48 +644,101 @@ export default {
     onFileSelected(e) {
       this.fileSelected = e.target.files[0].name;
     },
-    validations() {
+    validations(menu) {
       if (this.name === "") {
-        Notify.create("Debe poner un nombre para continuar");
+        this.$q.notify({
+          message: 'Debe poner un nombre para continuar',
+          color: 'primary',
+          multiLine: true,
+          avatar: 'Logo.jpg',
+          actions: [
+            { label: 'Ok', color: 'white', handler: () => { /* ... */ } }
+          ]
+        })
       } else if (this.description === "") {
-        Notify.create("Debe poner una descripción para continuar");
-      } else if (this.criteriosel === "") {
-        Notify.create("Debe poner un criterio de selección para un ganador");
-      } else if (this.time === 0) {
-        Notify.create("Debe poner un tiempo de duración");
-      } else if (
-          !this.CbEnseñar &&
-          !this.CbReforzar &&
-          !this.CbComprobar &&
-          !this.CbSocializar
-      ) {
-        Notify.create("Debe tener como minimo un propósito seleccionado");
+        this.$q.notify({
+          message: 'Debe poner una descripción para continuar',
+          color: 'primary',
+          multiLine: true,
+          avatar: 'Logo.jpg',
+          actions: [
+            { label: 'Ok', color: 'white', handler: () => { /* ... */ } }
+          ]
+        })
       } else if (this.leveloptions === "") {
-        Notify.create("Debe elegir un nivel de dificultad");
+        this.$q.notify({
+          message: 'Debe elegir un nivel de dificultad',
+          color: 'primary',
+          multiLine: true,
+          avatar: 'Logo.jpg',
+          actions: [
+            { label: 'Ok', color: 'white', handler: () => { /* ... */ } }
+          ]
+        })
+      } else if (this.criteriosel === "") {
+        this.$q.notify({
+          message: 'Debe poner un criterio de selección para un ganador',
+          color: 'primary',
+          multiLine: true,
+          avatar: 'Logo.jpg',
+          actions: [
+            { label: 'Ok', color: 'white', handler: () => { /* ... */ } }
+          ]
+        })
+      } else if (this.time === 0) {
+        this.$q.notify({
+          message: 'Debe poner un tiempo de duración',
+          color: 'primary',
+          multiLine: true,
+          avatar: 'Logo.jpg',
+          actions: [
+            { label: 'Ok', color: 'white', handler: () => { /* ... */ } }
+          ]
+        })
       } else {
-        this.showMenus('elements')
+        this.showMenus(menu)
+        this.validate = true
       }
     },
-    elementValidations () {
-      if (this.step2 === 3) {
-        let checkEmptyrules = this.rules.filter(rule => rule.Rname === null);
-        if (checkEmptyrules.length >= 1 && this.rules.length > 0) {
-          Notify.create("Una o todas las reglas estan vacías");
-          return "error";
-        }
-      } else if (this.step2 === 1) {
-        let checkEmpty = this.objectives.filter(obj => obj.Oname === null);
+    elementValidations (menu) {
+      if (!this.validate){
+        this.validations('elements')
+      } else {
+        const checkEmptyrules = this.rules.filter(rule => rule.Rname === null);
+        const checkEmpty = this.objectives.filter(obj => obj.Oname === null);
+        const checkEmptyMat = this.materials.filter(material => material.Maname === null);
         if (checkEmpty.length >= 1 && this.objectives.length > 0) {
-          Notify.create("Uno o todos los objetivos están vacíos");
-          return "error";
-        }
-      } else if (this.step2 === 7) {
-        let checkEmpty = this.materials.filter(
-          material => material.Maname === null
-        );
-        if (checkEmpty.length >= 1 && this.materials.length > 0) {
-          Notify.create("Uno o todos los materiales estan vacíos");
-          return "error";
+          this.$q.notify({
+            message: 'Uno o todos los objetivos estan vacíos',
+            color: 'primary',
+            multiLine: true,
+            avatar: 'Logo.jpg',
+            actions: [
+              { label: 'Ok', color: 'white', handler: () => { /* ... */ } }
+            ]
+          })
+        }else if (checkEmptyrules.length >= 1 && this.rules.length > 0) {
+           this.$q.notify({
+            message: 'Una o todas las reglas estan vacías',
+            color: 'primary',
+            multiLine: true,
+            avatar: 'Logo.jpg',
+            actions: [
+              { label: 'Ok', color: 'white', handler: () => { /* ... */ } }
+            ]
+          })
+        } else if (checkEmptyMat.length >= 1 && this.materials.length > 0) {
+          this.$q.notify({
+            message: 'Uno o todos los materiales estan vacíos',
+            color: 'primary',
+            multiLine: true,
+            avatar: 'Logo.jpg',
+            actions: [
+              { label: 'Ok', color: 'white', handler: () => { /* ... */ } }
+            ]
+          })
+        } else {
+          this.showMenus(menu)
         }
       }
     },
@@ -684,7 +747,7 @@ export default {
       Object.values(this.concepts).forEach(cat => {
         conceptsAsc += "," + cat.Coname;
       });
-      console.log(conceptsAsc);
+      let attach = (this.file) ? this.fileSelected.name : this.link
       let newInstrument = {
         name: this.name,
         Reglas: Object.values(this.rules),
@@ -703,7 +766,7 @@ export default {
         purpose_social: this.CbSocializar,
         description: this.description,
         groups: this.groups,
-        attachments: this.fileSelected.name,
+        attachments: attach,
         public: this.Public
       };
       this.data = newInstrument;
@@ -718,7 +781,15 @@ export default {
             { headers: { Authorization: "Bearer " + this.token } }
           )
           .then(res => {
-            Notify.create("Se ha actualizado correctamente el instrumento");
+            this.$q.notify({
+              message: 'Se ha actualizado correctamente el instrumento',
+              color: 'primary',
+              multiLine: true,
+              avatar: 'Logo.jpg',
+              actions: [
+                { label: 'Ok', color: 'white', handler: () => { /* ... */ } }
+              ]
+            })
             this.$router.push("/instruments");
           })
           .catch(err => {
@@ -743,7 +814,15 @@ export default {
       // let response = functions('post', newInstrument)
     },
     setInitState() {
-      Notify.create("Se ha agregado correctamente su instrumento");
+      this.$q.notify({
+        message: 'Se ha agregado correctamente el instrumento',
+        color: 'primary',
+        multiLine: true,
+        avatar: 'Logo.jpg',
+        actions: [
+        { label: 'Ok', color: 'white', handler: () => { /* ... */ } }
+        ]
+      })
       this.step = 1;
       this.name = "";
       this.rols = [];
@@ -758,6 +837,8 @@ export default {
       this.addObj();
       this.addRol();
       this.addConcepts();
+      this.showMenus('basics');
+      this.fileSelected = null;
     },
     edit() {
       if (this.dialogEdit) {
